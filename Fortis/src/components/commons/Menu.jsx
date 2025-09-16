@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { FaCaretDown, FaBars, FaShoppingCart, FaCaretUp } from "react-icons/fa";
 import { IoHeart } from "react-icons/io5";
 import { MdAccountCircle } from "react-icons/md";
-import { menuListProduct, menuProjects } from "@/utils/contants/Menu";
+import { menuListProduct, menuProjects } from "@/utils/constants/Menu";
 
 const Menu = () => {
     const navigate = useNavigate();
@@ -20,6 +20,9 @@ const Menu = () => {
     const childRef = useRef(null);
     const menuMbRef = useRef(null);
 
+    {
+        /* Handle when click outside with ref != null */
+    }
     useEffect(() => {
         function handleClickOutside(event) {
             if (childRef.current && !childRef.current.contains(event.target)) {
@@ -39,6 +42,9 @@ const Menu = () => {
         };
     }, [childRef, menuMbRef]);
 
+    {
+        /* Handle when logout */
+    }
     const handleLogout = () => {
         // localStorage.removeItem("accessToken");
         // localStorage.removeItem("refreshToken");
@@ -78,7 +84,7 @@ const Menu = () => {
                                 <ul className="flex flex-col gap-[10px] list-none w-[200px]">
                                     <li
                                         key={category.id}
-                                        className="font-medium text-[15px] cursor-pointer hover:text-[#fd8f7c]"
+                                        className="font-bold text-[15px] cursor-pointer hover:text-[#fd8f7c]"
                                     >
                                         {category.title}
                                     </li>
