@@ -95,7 +95,7 @@ const Banner = () => {
                                 data-aos="fade-right"
                                 className="text-[30px] ms:text-[35px] md:text-[40px] lg:text-[50px] break-words text-[#efefef] leading-[140%] text-center font-bold"
                             >
-                                Fortis - Chuyên Thi Công & Cung Cấp Sản Phẩm Nội
+                                Haus - Chuyên Thi Công & Cung Cấp Sản Phẩm Nội
                                 Thất Cao Cấp
                             </p>
                             <p
