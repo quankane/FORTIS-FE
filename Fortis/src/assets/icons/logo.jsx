@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function logo({
+function Logo({
     width = 100,
     height = 120,
     color = "#efefef",
@@ -197,3 +197,5 @@ c0 36 2 65 4 65 3 0 141 -89 308 -198z m-10 -199 c142 -92 258 -171 258 -175
         </svg>
     );
 }
+
+export default Logo;
