@@ -1,6 +1,10 @@
-import Aos from "aos";
 import React, { lazy, Suspense, useEffect } from "react";
 import { useRoutes } from "react-router-dom";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/autoplay";
+import Aos from "aos";
+import "aos/dist/aos.css";
 
 const Home = lazy(() => import("@/pages/Home"));
 

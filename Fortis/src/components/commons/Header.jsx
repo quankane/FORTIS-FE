@@ -75,7 +75,13 @@ const Header = () => {
     // const quantityOfProducts = useSelector((state) => state.order.quantityOfCart);
 
     return (
-        <div className="w-full bg-[#0a0400] bg-opacity-30 px-[20px]  md:px-[50px] lg:px-[130px] py-[20px] shadow-md absolute z-10">
+        <div
+            className={`w-full ${
+                location.pathname === "/"
+                    ? "bg-[#0a0400] bg-opacity-30"
+                    : "bg-[#885e45]"
+            } px-[20px]  md:px-[50px] lg:px-[130px] py-[20px] shadow-md absolute z-10`}
+        >
             <div className="flex items-center justify-between mb-[11px] flex-wrap gap-4">
                 {/* Logo */}
                 <div
@@ -160,10 +166,10 @@ const Header = () => {
                     >
                         <GrCart className="w-[30px] h-[30px]" />
                         {/* {quantityOfProducts > 0 && (
-              <span className="text-red-500 bg-lime-50 w-[20px] h-[20px] rounded-full flex items-center justify-center absolute -top-2 right-0 text-[14px]">
-                {quantityOfProducts}
-              </span>
-            )} */}
+                  <span className="text-red-500 bg-lime-50 w-[20px] h-[20px] rounded-full flex items-center justify-center absolute -top-2 right-0 text-[14px]">
+                    {quantityOfProducts}
+                  </span>
+                )} */}
                         <p className="text-[15px]">Giỏ hàng</p>
                     </div>
                 </div>
