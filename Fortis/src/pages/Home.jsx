@@ -4,6 +4,7 @@ import Layout from "@/components/commons/Layout";
 import About from "@/components/home/About";
 import Category from "@/components/home/Category";
 import Categories from "@/components/home/Categories";
+import Discounted from "@/components/home/Discounted";
 
 function Home() {
     return (
@@ -12,6 +13,7 @@ function Home() {
             <About />
             <Category />
             <Categories />
+            <Discounted />
         </Layout>
     );
 }
