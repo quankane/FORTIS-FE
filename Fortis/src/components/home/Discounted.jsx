@@ -38,6 +38,12 @@ const Discounted = () => {
     }, []);
 
     useEffect(() => {
+        updateSlidesPerView();
+        window.addEventListener("resize", updateSlidesPerView);
+        return () => window.removeEventListener("resize", updateSlidesPerView);
+    }, []);
+
+    useEffect(() => {
         if (swiperRef.current && swiperRef.current.swiper) {
             const swiperInstance = swiperRef.current.swiper;
             const updateNavigation = () => {
@@ -82,7 +88,7 @@ const Discounted = () => {
                     src="https://bizweb.dktcdn.net/100/570/902/themes/1027061/assets/bg-title-flashsale.png?1750130832000"
                     className="hidden xl:flex z-10"
                 />
-                <div className="w-full flex items-center justify-between bg-white py-4 px-8 rounded-xl xl:absolute xl:bottom-0 xl:left-[35px]">
+                <div className="w-full flex flex-col sm:flex-row items-center justify-between bg-white py-4 px-8 rounded-xl xl:absolute xl:bottom-0 xl:left-[35px]">
                     <div className="hidden xl:flex w-[270px]"></div>
                     <Countdown />
                     <p className="text-[30px] md:text-[35px] xl:text-[42px] leading-[140%] text-[#ad7555] font-semibold">

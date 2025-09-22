@@ -1,4 +1,4 @@
-import { sofas } from "@/utils/constants/sofaFake";
+import { sofas } from "@/utils/constants/SofaFake";
 import React, { useEffect, useState } from "react";
 import ProductItem from "../product/ProductItem";
 
