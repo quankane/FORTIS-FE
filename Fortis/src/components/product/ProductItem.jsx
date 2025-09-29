@@ -82,7 +82,7 @@ const ProductItem = ({ product }) => {
           }`}
                 >
                     {product?.image.length > 1
-                        ? "Tùy chọn"
+                        ? "Tùy chọn"
                         : product?.sell === product?.total
                         ? "Hết hàng"
                         : "Thêm vào giỏ hàng"}
