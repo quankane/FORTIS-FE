@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
 import pc2 from "@/assets/icons/anhthietke1.webp";
+import React, { useState, useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-const LoginForm = () => {
+export default function LoginForm() {
     const [isLogin, setIsLogin] = useState(true);
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -83,14 +83,37 @@ const LoginForm = () => {
         e.preventDefault();
         if (!validate()) return;
 
+        const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
+
         if (isLogin) {
-            if (formData.username && formData.password) {
-                localStorage.setItem("isLoggedIn", "true");
-                setIsLoggedIn(true);
-            } else {
+            const existingUser = storedUsers.find(
+                (u) =>
+                    u.username === formData.username &&
+                    u.password === formData.password
+            );
+            if (!existingUser) {
                 setErrors({ username: "Sai tên đăng nhập hoặc mật khẩu!" });
+                return;
             }
+            localStorage.setItem("isLoggedIn", "true");
+            setIsLoggedIn(true);
         } else {
+            const userExists = storedUsers.some(
+                (u) => u.username === formData.username
+            );
+            if (userExists) {
+                setErrors({ username: "Tên đăng nhập đã tồn tại!" });
+                return;
+            }
+            const newUser = {
+                firstName: formData.firstName,
+                lastName: formData.lastName,
+                email: formData.email,
+                username: formData.username,
+                password: formData.password,
+            };
+            storedUsers.push(newUser);
+            localStorage.setItem("users", JSON.stringify(storedUsers));
             alert("Đăng ký thành công, mời bạn đăng nhập!");
             setIsLogin(true);
         }
@@ -372,6 +395,4 @@ const LoginForm = () => {
             </div>
         </div>
     );
-};
-
-export default LoginForm;
+}
