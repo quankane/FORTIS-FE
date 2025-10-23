@@ -1,113 +1,98 @@
-import pc2 from "../../img/anhthietke1.webp";
-import React, { useState, useEffect } from "react";
-import AOS from "aos";
-import "aos/dist/aos.css";
+import pc2 from "@/assets/icons/anhthietke1.webp";
+import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+import { login, register } from "@/api/auth";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { LoginSchema, RegisterSchema } from "@/utils/validation/authValidation";
 
 export default function AuthForm() {
     const [isLogin, setIsLogin] = useState(true);
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    // Init AOS
-    useEffect(() => {
-        AOS.init({ duration: 800, once: false, offset: 100 });
-    }, []);
-    useEffect(() => {
-        AOS.refresh();
-    }, [isLogin]);
+    const navigate = useNavigate();
 
-    // Check trạng thái login từ localStorage
-    useEffect(() => {
-        const loggedIn = localStorage.getItem("isLoggedIn") === "true";
-        setIsLoggedIn(loggedIn);
-    }, []);
-
-    // Schema validation
-    const LoginSchema = Yup.object({
-        email: Yup.string().email("Email không hợp lệ").required("Vui lòng nhập email"),
-        password: Yup.string().min(6, "Mật khẩu phải ít nhất 6 ký tự").required("Vui lòng nhập mật khẩu"),
-    });
-
-    const RegisterSchema = Yup.object({
-        firstName: Yup.string().required("Vui lòng nhập họ"),
-        lastName: Yup.string().required("Vui lòng nhập tên"),
-        email: Yup.string().email("Email không hợp lệ").required("Vui lòng nhập email"),
-        password: Yup.string().min(6, "Mật khẩu phải ít nhất 6 ký tự").required("Vui lòng nhập mật khẩu"),
-        confirmPassword: Yup.string()
-            .oneOf([Yup.ref("password"), null], "Mật khẩu nhập lại không khớp")
-            .required("Vui lòng nhập lại mật khẩu"),
-    });
-
-    const handleSubmit = (values, { setSubmitting, setErrors, resetForm }) => {
-        const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
-
+    const handleSubmit = async (values) => {
         if (isLogin) {
-            const existingUser = storedUsers.find(
-                (u) => u.email === values.email && u.password === values.password
-            );
-            if (!existingUser) {
-                setErrors({ email: "Sai email hoặc mật khẩu!" });
-                setSubmitting(false);
-                return;
+            try {
+                const response = await login(values);
+                if (response.status === 200) {
+                    toast.success("Đăng nhập thành công!");
+                    navigate("/");
+                }
+            } catch (error) {
+                if (axios.isAxiosError(error) && error.response) {
+                    switch (error.response.status) {
+                        case 500:
+                            toast.error("Lỗi hệ thống");
+                            break;
+                        case 400:
+                            toast.error("Dữ liệu không hợp lệ");
+                            break;
+                        default:
+                            toast.error(
+                                "Đã xảy ra lỗi, vui lòng kiểm tra lại kết nối!"
+                            );
+                    }
+                }
+                console.log(error);
             }
-            localStorage.setItem("isLoggedIn", "true");
-            setIsLoggedIn(true);
         } else {
-            const userExists = storedUsers.some((u) => u.email === values.email);
-            if (userExists) {
-                setErrors({ email: "Email đã tồn tại!" });
-                setSubmitting(false);
-                return;
+            try {
+                const response = await register(values);
+                if (
+                    response.status === 0 ||
+                    response.data ===
+                        "Register successful. OTP has been sent to your email"
+                ) {
+                    toast.success(
+                        "Đăng ký thành công! Mã OTP đã được gửi tới email của bạn."
+                    );
+
+                    navigate("/auth/verifyOTP", {
+                        state: { email: values.email },
+                    });
+                }
+            } catch (error) {
+                if (axios.isAxiosError(error) && error.response) {
+                    switch (error.response.status) {
+                        case 500:
+                            toast.error("Lỗi hệ thống");
+                            break;
+                        case 400:
+                            toast.error("Dữ liệu không hợp lệ");
+                            break;
+                        case 404:
+                            toast.error("Đăng ký thất bại");
+                            break;
+                        case 409:
+                            toast.error("Tên đăng nhập đã tồn tại");
+                            break;
+                        default:
+                            toast.error(
+                                "Đã xảy ra lỗi, vui lòng kiểm tra lại kết nối!"
+                            );
+                    }
+                }
+                console.log(error);
             }
-            const newUser = {
-                firstName: values.firstName,
-                lastName: values.lastName,
-                email: values.email,
-                password: values.password,
-            };
-            storedUsers.push(newUser);
-            localStorage.setItem("users", JSON.stringify(storedUsers));
-            alert("Đăng ký thành công, mời bạn đăng nhập!");
-            setIsLogin(true);
-            resetForm();
         }
-        setSubmitting(false);
     };
-
-    const logoutHandler = () => {
-        localStorage.setItem("isLoggedIn", "false");
-        setIsLoggedIn(false);
-    };
-
-    if (isLoggedIn) {
-        return (
-            <div className="flex justify-center items-center min-h-screen bg-gray-100">
-                <div className="bg-white shadow-lg rounded-lg p-8 text-center" data-aos="zoom-in">
-                    <h2 className="text-2xl font-bold text-[#ad7555] mb-4">Xin chào!</h2>
-                    <p className="mb-4">Bạn đã đăng nhập thành công 🎉</p>
-                    <button
-                        onClick={logoutHandler}
-                        className="bg-[#ad7555] hover:bg-[#8c5c3f] text-white px-4 py-2 rounded-md transition duration-300"
-                    >
-                        Đăng xuất
-                    </button>
-                </div>
-            </div>
-        );
-    }
 
     return (
         <div className="flex justify-center items-center min-h-screen bg-gray-100 p-4">
             <div className="bg-white shadow-lg rounded-lg flex flex-col md:flex-row overflow-hidden w-full max-w-md md:max-w-4xl">
-
                 {/* Cột bên trái */}
                 <div
                     key={isLogin ? "left-login" : "left-register"}
                     className={`hidden md:flex w-full md:w-1/2 bg-gray-50 flex-col p-6 md:p-8 gap-4 
-                    ${isLogin ? "justify-center items-center" : "justify-start items-center"}`}
+                    ${
+                        isLogin
+                            ? "justify-center items-center"
+                            : "justify-start items-center"
+                    }`}
                     data-aos="fade-right"
                 >
                     <h2 className="text-2xl font-bold text-[#ad7555] mb-4">
@@ -147,10 +132,13 @@ export default function AuthForm() {
                             firstName: "",
                             lastName: "",
                             email: "",
+                            username: "",
                             password: "",
                             confirmPassword: "",
                         }}
-                        validationSchema={isLogin ? LoginSchema : RegisterSchema}
+                        validationSchema={
+                            isLogin ? LoginSchema : RegisterSchema
+                        }
                         onSubmit={handleSubmit}
                     >
                         {({ isSubmitting }) => (
@@ -164,7 +152,11 @@ export default function AuthForm() {
                                                 placeholder="Họ"
                                                 className="w-full p-2 border border-gray-400 rounded-xl focus:outline-none focus:border-[#ad7555] shadow-sm focus:shadow-md"
                                             />
-                                            <ErrorMessage name="firstName" component="p" className="text-red-500 text-sm" />
+                                            <ErrorMessage
+                                                name="firstName"
+                                                component="p"
+                                                className="text-red-500 text-sm"
+                                            />
                                         </div>
                                         <div>
                                             <Field
@@ -173,7 +165,11 @@ export default function AuthForm() {
                                                 placeholder="Tên"
                                                 className="w-full p-2 border border-gray-400 rounded-xl focus:outline-none focus:border-[#ad7555] shadow-sm focus:shadow-md"
                                             />
-                                            <ErrorMessage name="lastName" component="p" className="text-red-500 text-sm" />
+                                            <ErrorMessage
+                                                name="lastName"
+                                                component="p"
+                                                className="text-red-500 text-sm"
+                                            />
                                         </div>
                                     </div>
                                 )}
@@ -185,19 +181,27 @@ export default function AuthForm() {
                                         placeholder="Email"
                                         className="w-full p-2 border border-gray-400 rounded-xl focus:outline-none focus:border-[#ad7555] shadow-sm focus:shadow-md"
                                     />
-                                    <ErrorMessage name="email" component="p" className="text-red-500 text-sm" />
+                                    <ErrorMessage
+                                        name="email"
+                                        component="p"
+                                        className="text-red-500 text-sm"
+                                    />
                                 </div>
 
                                 <div className="relative">
                                     <Field
-                                        type={showPassword ? "text" : "password"}
+                                        type={
+                                            showPassword ? "text" : "password"
+                                        }
                                         name="password"
                                         placeholder="Mật khẩu"
                                         className="w-full p-2 border border-gray-400 rounded-xl focus:outline-none focus:border-[#ad7555] shadow-sm focus:shadow-md"
                                     />
                                     <button
                                         type="button"
-                                        onClick={() => setShowPassword(!showPassword)}
+                                        onClick={() =>
+                                            setShowPassword(!showPassword)
+                                        }
                                         className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-600 text-base"
                                     >
                                         {showPassword ? (
@@ -206,20 +210,32 @@ export default function AuthForm() {
                                             <i className="fa-solid fa-eye-slash"></i>
                                         )}
                                     </button>
-                                    <ErrorMessage name="password" component="p" className="text-red-500 text-sm" />
+                                    <ErrorMessage
+                                        name="password"
+                                        component="p"
+                                        className="text-red-500 text-sm"
+                                    />
                                 </div>
 
                                 {!isLogin && (
                                     <div className="relative">
                                         <Field
-                                            type={showConfirmPassword ? "text" : "password"}
+                                            type={
+                                                showConfirmPassword
+                                                    ? "text"
+                                                    : "password"
+                                            }
                                             name="confirmPassword"
                                             placeholder="Xác nhận lại mật khẩu"
                                             className="w-full p-2 border border-gray-400 rounded-xl focus:outline-none focus:border-[#ad7555] shadow-sm focus:shadow-md"
                                         />
                                         <button
                                             type="button"
-                                            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                            onClick={() =>
+                                                setShowConfirmPassword(
+                                                    !showConfirmPassword
+                                                )
+                                            }
                                             className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-600 text-base"
                                         >
                                             {showConfirmPassword ? (
@@ -228,7 +244,11 @@ export default function AuthForm() {
                                                 <i className="fa-solid fa-eye-slash"></i>
                                             )}
                                         </button>
-                                        <ErrorMessage name="confirmPassword" component="p" className="text-red-500 text-sm" />
+                                        <ErrorMessage
+                                            name="confirmPassword"
+                                            component="p"
+                                            className="text-red-500 text-sm"
+                                        />
                                     </div>
                                 )}
 
@@ -241,12 +261,17 @@ export default function AuthForm() {
                                     {isLogin ? "Đăng nhập" : "Đăng ký"}
                                 </button>
 
-                                <div className="text-center text-sm md:text-base" data-aos="fade-up">
+                                <div
+                                    className="text-center text-sm md:text-base"
+                                    data-aos="fade-up"
+                                >
                                     {isLogin ? (
                                         <p>
                                             Bạn chưa có tài khoản?{" "}
                                             <span
-                                                onClick={() => setIsLogin(false)}
+                                                onClick={() =>
+                                                    setIsLogin(false)
+                                                }
                                                 className="text-[#ad7555] cursor-pointer"
                                             >
                                                 Đăng ký
@@ -271,9 +296,14 @@ export default function AuthForm() {
                                     </p>
                                 )}
 
-                                <div className="flex items-center my-3 md:my-4" data-aos="fade-up">
+                                <div
+                                    className="flex items-center my-3 md:my-4"
+                                    data-aos="fade-up"
+                                >
                                     <hr className="flex-grow border-gray-300" />
-                                    <span className="mx-2 text-gray-500 text-sm md:text-base">Hoặc</span>
+                                    <span className="mx-2 text-gray-500 text-sm md:text-base">
+                                        Hoặc
+                                    </span>
                                     <hr className="flex-grow border-gray-300" />
                                 </div>
 
