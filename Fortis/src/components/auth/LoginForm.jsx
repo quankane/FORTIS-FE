@@ -1,9 +1,9 @@
-import pc2 from "@/assets/icons/anhthietke1.webp";
+import pc2 from "../../img/anhthietke1.webp";
 import React, { useState, useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-export default function LoginForm() {
+const LoginForm = () => {
     const [isLogin, setIsLogin] = useState(true);
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -18,6 +18,7 @@ export default function LoginForm() {
     });
     const [errors, setErrors] = useState({});
 
+
     useEffect(() => {
         AOS.init({ duration: 800, once: false, offset: 100 });
     }, []);
@@ -25,10 +26,12 @@ export default function LoginForm() {
         AOS.refresh();
     }, [isLogin]);
 
+
     useEffect(() => {
         const loggedIn = localStorage.getItem("isLoggedIn") === "true";
         setIsLoggedIn(loggedIn);
     }, []);
+
 
     useEffect(() => {
         setFormData({
@@ -51,18 +54,15 @@ export default function LoginForm() {
     const validate = () => {
         const newErrors = {};
         if (!isLogin) {
-            if (!formData.firstName.trim())
-                newErrors.firstName = "Vui lòng nhập họ";
-            if (!formData.lastName.trim())
-                newErrors.lastName = "Vui lòng nhập tên";
+            if (!formData.firstName.trim()) newErrors.firstName = "Vui lòng nhập họ";
+            if (!formData.lastName.trim()) newErrors.lastName = "Vui lòng nhập tên";
             if (!formData.email.trim()) {
                 newErrors.email = "Vui lòng nhập email";
             } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
                 newErrors.email = "Email không hợp lệ";
             }
         }
-        if (!formData.username.trim())
-            newErrors.username = "Vui lòng nhập tên đăng nhập";
+        if (!formData.username.trim()) newErrors.username = "Vui lòng nhập tên đăng nhập";
         if (!formData.password.trim()) {
             newErrors.password = "Vui lòng nhập mật khẩu";
         } else if (formData.password.length < 6) {
@@ -87,9 +87,7 @@ export default function LoginForm() {
 
         if (isLogin) {
             const existingUser = storedUsers.find(
-                (u) =>
-                    u.username === formData.username &&
-                    u.password === formData.password
+                (u) => u.username === formData.username && u.password === formData.password
             );
             if (!existingUser) {
                 setErrors({ username: "Sai tên đăng nhập hoặc mật khẩu!" });
@@ -98,9 +96,7 @@ export default function LoginForm() {
             localStorage.setItem("isLoggedIn", "true");
             setIsLoggedIn(true);
         } else {
-            const userExists = storedUsers.some(
-                (u) => u.username === formData.username
-            );
+            const userExists = storedUsers.some((u) => u.username === formData.username);
             if (userExists) {
                 setErrors({ username: "Tên đăng nhập đã tồn tại!" });
                 return;
@@ -127,13 +123,8 @@ export default function LoginForm() {
     if (isLoggedIn) {
         return (
             <div className="flex justify-center items-center min-h-screen bg-gray-100">
-                <div
-                    className="bg-white shadow-lg rounded-lg p-8 text-center"
-                    data-aos="zoom-in"
-                >
-                    <h2 className="text-2xl font-bold text-orange-500 mb-4">
-                        Xin chào!
-                    </h2>
+                <div className="bg-white shadow-lg rounded-lg p-8 text-center" data-aos="zoom-in">
+                    <h2 className="text-2xl font-bold text-orange-500 mb-4">Xin chào!</h2>
                     <p className="mb-4">Bạn đã đăng nhập thành công 🎉</p>
                     <button
                         onClick={logoutHandler}
@@ -149,15 +140,12 @@ export default function LoginForm() {
     return (
         <div className="flex justify-center items-center min-h-screen bg-gray-100 p-4">
             <div className="bg-white shadow-lg rounded-lg flex flex-col md:flex-row overflow-hidden w-full max-w-md md:max-w-4xl">
+
                 {/* Cột bên trái */}
                 <div
                     key={isLogin ? "left-login" : "left-register"}
                     className={`hidden md:flex w-full md:w-1/2 bg-gray-50 flex-col p-6 md:p-8 gap-4 
-                    ${
-                        isLogin
-                            ? "justify-center items-center"
-                            : "justify-start items-center"
-                    }`}
+                    ${isLogin ? "justify-center items-center" : "justify-start items-center"}`}
                     data-aos="fade-right"
                 >
                     <h2 className="text-2xl font-bold text-orange-500 mb-4">
@@ -192,10 +180,7 @@ export default function LoginForm() {
                         {isLogin ? "Đăng nhập" : "Đăng ký"}
                     </h2>
 
-                    <form
-                        className="space-y-3 md:space-y-4"
-                        onSubmit={handleSubmit}
-                    >
+                    <form className="space-y-3 md:space-y-4" onSubmit={handleSubmit}>
                         {!isLogin && (
                             <div className="space-y-3 md:space-y-4">
                                 <div>
@@ -207,11 +192,7 @@ export default function LoginForm() {
                                         onChange={handleChange}
                                         className="w-full p-2 border border-gray-400 rounded-xl focus:outline-none focus:border-orange-500 shadow-sm focus:shadow-md"
                                     />
-                                    {errors.firstName && (
-                                        <p className="text-red-500 text-sm">
-                                            {errors.firstName}
-                                        </p>
-                                    )}
+                                    {errors.firstName && <p className="text-red-500 text-sm">{errors.firstName}</p>}
                                 </div>
                                 <div>
                                     <input
@@ -222,11 +203,7 @@ export default function LoginForm() {
                                         onChange={handleChange}
                                         className="w-full p-2 border border-gray-400 rounded-xl focus:outline-none focus:border-orange-500 shadow-sm focus:shadow-md"
                                     />
-                                    {errors.lastName && (
-                                        <p className="text-red-500 text-sm">
-                                            {errors.lastName}
-                                        </p>
-                                    )}
+                                    {errors.lastName && <p className="text-red-500 text-sm">{errors.lastName}</p>}
                                 </div>
                                 <div>
                                     <input
@@ -237,11 +214,7 @@ export default function LoginForm() {
                                         onChange={handleChange}
                                         className="w-full p-2 border border-gray-400 rounded-xl focus:outline-none focus:border-orange-500 shadow-sm focus:shadow-md"
                                     />
-                                    {errors.email && (
-                                        <p className="text-red-500 text-sm">
-                                            {errors.email}
-                                        </p>
-                                    )}
+                                    {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
                                 </div>
                             </div>
                         )}
@@ -255,11 +228,7 @@ export default function LoginForm() {
                                 onChange={handleChange}
                                 className="w-full p-2 border border-gray-400 rounded-xl focus:outline-none focus:border-orange-500 shadow-sm focus:shadow-md"
                             />
-                            {errors.username && (
-                                <p className="text-red-500 text-sm">
-                                    {errors.username}
-                                </p>
-                            )}
+                            {errors.username && <p className="text-red-500 text-sm">{errors.username}</p>}
                         </div>
 
                         <div className="relative">
@@ -282,21 +251,13 @@ export default function LoginForm() {
                                     <i className="fa-solid fa-eye-slash text-black"></i>
                                 )}
                             </button>
-                            {errors.password && (
-                                <p className="text-red-500 text-sm">
-                                    {errors.password}
-                                </p>
-                            )}
+                            {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
                         </div>
 
                         {!isLogin && (
                             <div className="relative">
                                 <input
-                                    type={
-                                        showConfirmPassword
-                                            ? "text"
-                                            : "password"
-                                    }
+                                    type={showConfirmPassword ? "text" : "password"}
                                     name="confirmPassword"
                                     placeholder="Xác nhận lại mật khẩu"
                                     value={formData.confirmPassword}
@@ -305,11 +266,7 @@ export default function LoginForm() {
                                 />
                                 <button
                                     type="button"
-                                    onClick={() =>
-                                        setShowConfirmPassword(
-                                            !showConfirmPassword
-                                        )
-                                    }
+                                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                                     className="absolute right-3 top-2 text-gray-500 text-lg"
                                 >
                                     {showConfirmPassword ? (
@@ -319,9 +276,7 @@ export default function LoginForm() {
                                     )}
                                 </button>
                                 {errors.confirmPassword && (
-                                    <p className="text-red-500 text-sm">
-                                        {errors.confirmPassword}
-                                    </p>
+                                    <p className="text-red-500 text-sm">{errors.confirmPassword}</p>
                                 )}
                             </div>
                         )}
@@ -334,10 +289,7 @@ export default function LoginForm() {
                             {isLogin ? "Đăng nhập" : "Đăng ký"}
                         </button>
 
-                        <div
-                            className="text-center text-sm md:text-base"
-                            data-aos="fade-up"
-                        >
+                        <div className="text-center text-sm md:text-base" data-aos="fade-up">
                             {isLogin ? (
                                 <p>
                                     Bạn chưa có tài khoản?{" "}
@@ -367,14 +319,9 @@ export default function LoginForm() {
                             </p>
                         )}
 
-                        <div
-                            className="flex items-center my-3 md:my-4"
-                            data-aos="fade-up"
-                        >
+                        <div className="flex items-center my-3 md:my-4" data-aos="fade-up">
                             <hr className="flex-grow border-gray-300" />
-                            <span className="mx-2 text-gray-500 text-sm md:text-base">
-                                Hoặc
-                            </span>
+                            <span className="mx-2 text-gray-500 text-sm md:text-base">Hoặc</span>
                             <hr className="flex-grow border-gray-300" />
                         </div>
 
@@ -396,3 +343,6 @@ export default function LoginForm() {
         </div>
     );
 }
+
+export default LoginForm
+
