@@ -5,13 +5,18 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { FaCaretDown, FaBars, FaShoppingCart, FaCaretUp } from "react-icons/fa";
 import { IoHeart } from "react-icons/io5";
 import { MdAccountCircle } from "react-icons/md";
-import { menuListProduct, menuProjects } from "@/utils/constants/Menu";
+import { menuListProduct, menuProjects } from "@/utils/contants/Menu";
+import { removeAllCookies } from "@/utils/cookies";
+import { getAllCategory } from "@/api/category";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const Menu = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [productCategorys, setProductCategorys] = useState(menuListProduct);
     const [projectCategorys, setProjectCategorys] = useState(menuProjects);
+    const [categories, setCategories] = useState([]);
 
     const [isLogin, setIsLogin] = useState(false);
     const [isShow, setIsShow] = useState(false);
@@ -20,9 +25,6 @@ const Menu = () => {
     const childRef = useRef(null);
     const menuMbRef = useRef(null);
 
-    {
-        /* Handle when click outside with ref != null */
-    }
     useEffect(() => {
         function handleClickOutside(event) {
             if (childRef.current && !childRef.current.contains(event.target)) {
@@ -42,17 +44,41 @@ const Menu = () => {
         };
     }, [childRef, menuMbRef]);
 
-    {
-        /* Handle when logout */
-    }
     const handleLogout = () => {
-        // localStorage.removeItem("accessToken");
-        // localStorage.removeItem("refreshToken");
-        // toast.success("Đăng xuất thành công");
-        // setIsLogin(false);
-        // navigate("/auth");
+        removeAllCookies();
+        setIsLogin(false);
+        toast.success("Đăng xuất thành công!");
+        navigate("/");
     };
 
+    const fetchCategories = async (data) => {
+        try {
+            const response = await getAllCategory(data);
+            if (response.status === 200) {
+                setCategories(response.data.items);
+            }
+        } catch (error) {
+            if (axios.isAxiosError(error) && error.response) {
+                switch (error.response.status) {
+                    case 500:
+                        toast.error("Lỗi hệ thống");
+                        break;
+                    default:
+                        toast.error(
+                            "Đã xảy ra lỗi, vui lòng kiểm tra lại kết nối!"
+                        );
+                }
+            }
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        fetchCategories({
+            pageNum: 1,
+            pageSize: 200,
+        });
+    }, []);
     return (
         <>
             {/* Menu desktop */}
@@ -80,24 +106,34 @@ const Menu = () => {
                             <FaCaretUp className="hidden text-[15px] group-hover:block" />
                         </span>
                         <div className="hidden absolute top-full left-0 bg-white p-5 rounded shadow-lg z-10 group-hover:flex group-hover:flex-wrap gap-[20px] justify-between w-[900px]">
-                            {productCategorys.map((category) => (
+                            {categories.map((category) => (
                                 <ul className="flex flex-col gap-[10px] list-none w-[200px]">
                                     <li
                                         key={category.id}
-                                        className="font-bold text-[15px] cursor-pointer hover:text-[#fd8f7c]"
+                                        onClick={() =>
+                                            navigate(
+                                                `/listProductByCategory/${category.id}`
+                                            )
+                                        }
+                                        className="font-medium text-[15px] cursor-pointer hover:text-[#fd8f7c]"
                                     >
-                                        {category.title}
+                                        {category.categoryName}
                                     </li>
-                                    {category.childrens &&
-                                        category.childrens.length > 0 && (
+                                    {category.subCategories &&
+                                        category.subCategories.length > 0 && (
                                             <ul className="flex flex-col gap-[10px] list-none">
-                                                {category.childrens.map(
+                                                {category.subCategories.map(
                                                     (child) => (
                                                         <li
                                                             key={child.id}
+                                                            onClick={() =>
+                                                                navigate(
+                                                                    `/listProductByCategory/${child.id}`
+                                                                )
+                                                            }
                                                             className="text-[15px] cursor-pointer hover:text-[#fd8f7c]"
                                                         >
-                                                            {child.name}
+                                                            {child.categoryName}
                                                         </li>
                                                     )
                                                 )}
@@ -236,7 +272,7 @@ const Menu = () => {
                         >
                             <p
                                 className="px-5 rounded-lg py-2 text-[15px] hover:bg-[#fdfbfb] hover:text-[#9a542c] cursor-pointer"
-                                onClick={() => navigate("/profile")}
+                                onClick={() => navigate("/view-infor")}
                             >
                                 Trang cá nhân
                             </p>
