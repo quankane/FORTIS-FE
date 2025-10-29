@@ -1,18 +1,25 @@
+/* eslint-disable */
 import React, { useState, useEffect } from "react";
 import Layout from "../commons/Layout";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import {
+    sentEmailForgotPassword,
+    verifyOTPForForgotPassword,
+} from "@/api/auth";
+import { toast } from "react-toastify";
+import { formatTime } from "@/utils/function";
 
 const ForgotPassword = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
     const [forgotEmail, setForgotEmail] = useState("");
     const [otp, setOtp] = useState("");
-    const [emailError, setEmailError] = useState("");
     const [forgotEmailError, setForgotEmailError] = useState("");
     const [accountNotFound, setAccountNotFound] = useState(false);
     const [resetEmailSent, setResetEmailSent] = useState(false);
-    const [countdown, setCountdown] = useState(0);
+    const [countdown, setCountdown] = useState(300);
     const [canResend, setCanResend] = useState(false);
 
+    const navigate = useNavigate();
     // Countdown timer effect
     useEffect(() => {
         let timer;
@@ -57,41 +64,82 @@ const ForgotPassword = () => {
         return true;
     };
 
-    const handleLogin = () => {
-        if (validateEmail(email, false)) {
-            if (email.toLowerCase().includes("test")) {
-                setAccountNotFound(true);
-            } else {
-                console.log("Login successful");
+    const handleSendEmail = async () => {
+        try {
+            const response = await sentEmailForgotPassword({
+                email: forgotEmail,
+            });
+            if (response?.status === 202) {
+                setResetEmailSent(true);
+                setAccountNotFound(false);
+                setCanResend(false);
+            }
+        } catch (error) {
+            if (axios.isAxiosError(error) && error.response) {
+                switch (error.response.status) {
+                    case 500:
+                        toast.error("Lỗi hệ thống");
+                        break;
+                    case 400:
+                        toast.error("Email không hợp lệ");
+                        break;
+                    case 404:
+                        setAccountNotFound(true);
+                        toast.error("Không tìm thấy tài khoản");
+                        break;
+                    default:
+                        toast.error(
+                            "Đã xảy ra lỗi, vui lòng kiểm tra lại kết nối!"
+                        );
+                }
+                setResetEmailSent(false);
             }
         }
     };
 
-    const handleForgotPassword = () => {
-        if (validateEmail(forgotEmail, true)) {
-            setResetEmailSent(true);
-            setAccountNotFound(false);
-            setCountdown(60); // Set 60 seconds countdown
-            setCanResend(false);
-        } else if (forgotEmail.toLowerCase().includes("notfound")) {
-            setAccountNotFound(true);
-            setResetEmailSent(false);
+    const verifyOTP = async () => {
+        const data = {
+            email: forgotEmail,
+            otp,
+        };
+        try {
+            const response = await verifyOTPForForgotPassword(data);
+            if (response.status === 200) {
+                setResetEmailSent(false);
+                setAccountNotFound(false);
+                navigate("/update-password", { state: { email: forgotEmail } });
+            }
+        } catch (error) {
+            if (axios.isAxiosError(error) && error.response) {
+                switch (error.response.status) {
+                    case 500:
+                        toast.error("Lỗi hệ thống");
+                        break;
+                    case 400:
+                        toast.error("OTP không hợp lệ");
+                        break;
+                    default:
+                        toast.error(
+                            "Đã xảy ra lỗi, vui lòng kiểm tra lại kết nối!"
+                        );
+                }
+                setResetEmailSent(false);
+            }
+        }
+    };
+
+    const handleForgotPassword = async () => {
+        if (resetEmailSent) {
+            verifyOTP();
+        } else {
+            if (validateEmail(forgotEmail, true)) {
+                handleSendEmail();
+            }
         }
     };
 
     const handleResendOTP = () => {
-        if (canResend) {
-            setCountdown(60); // Reset countdown to 60 seconds
-            setCanResend(false);
-            // Logic to resend OTP here
-            console.log("Resending OTP...");
-        }
-    };
-
-    const handleEmailChange = (e) => {
-        setEmail(e.target.value);
-        setEmailError("");
-        setAccountNotFound(false);
+        handleSendEmail();
     };
 
     const handleForgotEmailChange = (e) => {
@@ -105,17 +153,9 @@ const ForgotPassword = () => {
         setOtp(e.target.value);
     };
 
-    const formatTime = (seconds) => {
-        const mins = Math.floor(seconds / 60);
-        const secs = seconds % 60;
-        return `${mins.toString().padStart(2, "0")}:${secs
-            .toString()
-            .padStart(2, "0")}`;
-    };
-
     return (
         <Layout>
-            <div className="min-h-screen bg-gray-50 pt-[100px] p-[2%]">
+            <div className="min-h-screen bg-gray-50 pt-[200px] p-[2%]">
                 <div className="bg-gray-50 flex items-center justify-center py-8 px-4">
                     <div className="max-w-sm w-full bg-white rounded-lg shadow-md p-6">
                         <div className="text-center mb-6">
@@ -126,6 +166,7 @@ const ForgotPassword = () => {
                                 Nếu bạn chưa có tài khoản,{" "}
                                 <a
                                     href="#"
+                                    onClick={() => navigate("/auth")}
                                     className="text-[#b4805d] hover:text-gray-600"
                                 >
                                     đăng ký tại đây
