@@ -56,15 +56,15 @@ const processQueue = (error, token = null) => {
 
 axiosPrivate.interceptors.response.use(
     (response) => {
-        if (response && response.data) {
-            return response.data;
-        }
+        // if (response && response.data) {
+        //   return response.data;
+        // }
         return response;
     },
     async (error) => {
         const originalRequest = error.config;
 
-        if (error.response?.status === 401 && !originalRequest._retry) {
+        if (error.response?.status === 403 && !originalRequest._retry) {
             if (isRefreshing) {
                 return new Promise(function (resolve, reject) {
                     failedQueue.push({ resolve, reject });
@@ -94,12 +94,19 @@ axiosPrivate.interceptors.response.use(
             } catch (error) {
                 processQueue(error, null);
                 removeAllCookies();
-                window.location.href = "/login";
+                window.location.href = "/auth";
                 return Promise.reject(error);
             } finally {
                 isRefreshing = false;
             }
         }
+
+        if (error.response.status === 401) {
+            removeAllCookies();
+            window.location.href = "/auth";
+            return Promise.reject(error);
+        }
+
         const errorResponse = {
             status: get(error, "response.status", null),
             message: get(error, "response.data.message", null),
