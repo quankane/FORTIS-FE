@@ -1,15 +1,25 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import Layout from "@/components/commons/Layout";
-import { resetPassword } from "@/api/user";
-import { getCookie } from "@/utils/cookies";
 import { toast } from "react-toastify";
 import axios from "axios";
+import SidebarProfile from "@/components/auth/SidebarProfile";
+import { resetPassword } from "@/api/user";
+import { useNavigate } from "react-router-dom";
+import { IoEye } from "react-icons/io5";
+import { IoEyeOff } from "react-icons/io5";
+
 const ChangePassword = () => {
     const [currentPassword, setCurrentPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [errors, setErrors] = useState({});
+    const [isShowPassword, setShowPassword] = useState({
+        currentPassword: false,
+        newPassword: false,
+        confirmPassword: false,
+    });
+
+    const navigate = useNavigate();
 
     const validatePassword = (password) => {
         if (password.length < 8) {
@@ -44,9 +54,6 @@ const ChangePassword = () => {
 
         if (!currentPassword.trim()) {
             newErrors.currentPassword = "Vui lòng nhập mật khẩu cũ";
-        } else if (currentPassword !== "123456") {
-            // Simulate wrong password
-            newErrors.currentPassword = "Mật khẩu cũ không đúng";
         }
 
         if (!newPassword.trim()) {
@@ -72,17 +79,17 @@ const ChangePassword = () => {
         if (validateForm()) {
             try {
                 const data = {
-                    email: getCookie("email"),
                     currentPassword,
                     newPassword,
                 };
                 const response = await resetPassword(data);
-                if (response.status === 0) {
+                if (response.status === 200) {
                     toast.success("Đổi mật khẩu thành công!");
                     setCurrentPassword("");
                     setNewPassword("");
                     setConfirmPassword("");
                     setErrors({});
+                    navigate("/auth");
                 }
             } catch (error) {
                 if (axios.isAxiosError(error) && error.response) {
@@ -130,36 +137,7 @@ const ChangePassword = () => {
             <div className="min-h-screen bg-gray-50 pt-[100px]">
                 <div className="container mx-auto px-20 py-8">
                     <div className="flex flex-col lg:flex-row gap-8">
-                        <div className="pl-[2%] pt-[2%] lg:w-1/5 ">
-                            <div className="p-1 border-b-2 lg:border-b-0 lg:border-r-2">
-                                <nav className="space-y-2">
-                                    <Link
-                                        to="/view-infor"
-                                        className="block w-full text-left py-2 px-3 rounded transition-colors text-gray-700 hover:bg-gray-100"
-                                    >
-                                        Thông tin tài khoản
-                                    </Link>
-                                    <Link
-                                        to="#"
-                                        className="block w-full text-left py-2 px-3 rounded transition-colors text-gray-700 hover:bg-gray-100"
-                                    >
-                                        Đơn hàng của bạn
-                                    </Link>
-                                    <Link
-                                        to="/change-password"
-                                        className="block w-full text-left py-3 px-4 rounded bg-[#ad7555]/10 text-[#ad7555] font-medium border-l-4 border-[#ad7555]"
-                                    >
-                                        Đổi mật khẩu
-                                    </Link>
-                                    <Link
-                                        to="#"
-                                        className="block w-full text-left py-2 px-3 rounded transition-colors text-gray-700 hover:bg-gray-100"
-                                    >
-                                        Sổ địa chỉ (0)
-                                    </Link>
-                                </nav>
-                            </div>
-                        </div>
+                        <SidebarProfile />
 
                         <div className="lg:w-4/5 pt-[2%] ">
                             <div className="p-1">
@@ -192,7 +170,11 @@ const ChangePassword = () => {
                                                             </label>
                                                             <div className="relative max-w-[250px]">
                                                                 <input
-                                                                    type="password"
+                                                                    type={
+                                                                        isShowPassword.currentPassword
+                                                                            ? "text"
+                                                                            : "password"
+                                                                    }
                                                                     value={
                                                                         currentPassword
                                                                     }
@@ -212,46 +194,37 @@ const ChangePassword = () => {
                                                                             : "border-gray-200 focus:ring-[#ad7555]"
                                                                     }`}
                                                                 />
-                                                                <button
-                                                                    type="button"
-                                                                    onClick={(
-                                                                        e
-                                                                    ) => {
-                                                                        const input =
-                                                                            e.target
-                                                                                .closest(
-                                                                                    "div"
-                                                                                )
-                                                                                .querySelector(
-                                                                                    "input"
-                                                                                );
-                                                                        const icon =
-                                                                            e.target
-                                                                                .closest(
-                                                                                    "button"
-                                                                                )
-                                                                                .querySelector(
-                                                                                    "i"
-                                                                                );
-                                                                        if (
-                                                                            input.type ===
-                                                                            "password"
-                                                                        ) {
-                                                                            input.type =
-                                                                                "text";
-                                                                            icon.className =
-                                                                                "fas fa-eye-slash text-sm";
-                                                                        } else {
-                                                                            input.type =
-                                                                                "password";
-                                                                            icon.className =
-                                                                                "fas fa-eye text-sm";
-                                                                        }
-                                                                    }}
-                                                                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none"
-                                                                >
-                                                                    <i className="fas fa-eye text-sm"></i>
-                                                                </button>
+                                                                {isShowPassword.currentPassword ? (
+                                                                    <IoEye
+                                                                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none cursor-pointer"
+                                                                        onClick={() => {
+                                                                            setShowPassword(
+                                                                                (
+                                                                                    prev
+                                                                                ) => ({
+                                                                                    ...prev,
+                                                                                    currentPassword:
+                                                                                        !prev.currentPassword,
+                                                                                })
+                                                                            );
+                                                                        }}
+                                                                    />
+                                                                ) : (
+                                                                    <IoEyeOff
+                                                                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none cursor-pointer"
+                                                                        onClick={() => {
+                                                                            setShowPassword(
+                                                                                (
+                                                                                    prev
+                                                                                ) => ({
+                                                                                    ...prev,
+                                                                                    currentPassword:
+                                                                                        !prev.currentPassword,
+                                                                                })
+                                                                            );
+                                                                        }}
+                                                                    />
+                                                                )}
                                                             </div>
                                                             {errors.currentPassword && (
                                                                 <p className="text-red-600 text-sm mt-1">
@@ -271,7 +244,11 @@ const ChangePassword = () => {
                                                             </label>
                                                             <div className="relative max-w-[250px]">
                                                                 <input
-                                                                    type="password"
+                                                                    type={
+                                                                        isShowPassword.newPassword
+                                                                            ? "text"
+                                                                            : "password"
+                                                                    }
                                                                     value={
                                                                         newPassword
                                                                     }
@@ -291,46 +268,37 @@ const ChangePassword = () => {
                                                                             : "border-gray-200 focus:ring-[#ad7555]"
                                                                     }`}
                                                                 />
-                                                                <button
-                                                                    type="button"
-                                                                    onClick={(
-                                                                        e
-                                                                    ) => {
-                                                                        const input =
-                                                                            e.target
-                                                                                .closest(
-                                                                                    "div"
-                                                                                )
-                                                                                .querySelector(
-                                                                                    "input"
-                                                                                );
-                                                                        const icon =
-                                                                            e.target
-                                                                                .closest(
-                                                                                    "button"
-                                                                                )
-                                                                                .querySelector(
-                                                                                    "i"
-                                                                                );
-                                                                        if (
-                                                                            input.type ===
-                                                                            "password"
-                                                                        ) {
-                                                                            input.type =
-                                                                                "text";
-                                                                            icon.className =
-                                                                                "fas fa-eye-slash text-sm";
-                                                                        } else {
-                                                                            input.type =
-                                                                                "password";
-                                                                            icon.className =
-                                                                                "fas fa-eye text-sm";
-                                                                        }
-                                                                    }}
-                                                                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none"
-                                                                >
-                                                                    <i className="fas fa-eye text-sm"></i>
-                                                                </button>
+                                                                {isShowPassword.newPassword ? (
+                                                                    <IoEye
+                                                                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none cursor-pointer"
+                                                                        onClick={() => {
+                                                                            setShowPassword(
+                                                                                (
+                                                                                    prev
+                                                                                ) => ({
+                                                                                    ...prev,
+                                                                                    newPassword:
+                                                                                        !prev.newPassword,
+                                                                                })
+                                                                            );
+                                                                        }}
+                                                                    />
+                                                                ) : (
+                                                                    <IoEyeOff
+                                                                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none cursor-pointer"
+                                                                        onClick={() => {
+                                                                            setShowPassword(
+                                                                                (
+                                                                                    prev
+                                                                                ) => ({
+                                                                                    ...prev,
+                                                                                    newPassword:
+                                                                                        !prev.newPassword,
+                                                                                })
+                                                                            );
+                                                                        }}
+                                                                    />
+                                                                )}
                                                             </div>
                                                             {errors.newPassword && (
                                                                 <div className="text-red-600 text-sm mt-1">
@@ -351,7 +319,11 @@ const ChangePassword = () => {
                                                             </label>
                                                             <div className="relative max-w-[250px]">
                                                                 <input
-                                                                    type="password"
+                                                                    type={
+                                                                        isShowPassword.confirmPassword
+                                                                            ? "text"
+                                                                            : "password"
+                                                                    }
                                                                     value={
                                                                         confirmPassword
                                                                     }
@@ -371,46 +343,37 @@ const ChangePassword = () => {
                                                                             : "border-gray-200 focus:ring-[#ad7555]"
                                                                     }`}
                                                                 />
-                                                                <button
-                                                                    type="button"
-                                                                    onClick={(
-                                                                        e
-                                                                    ) => {
-                                                                        const input =
-                                                                            e.target
-                                                                                .closest(
-                                                                                    "div"
-                                                                                )
-                                                                                .querySelector(
-                                                                                    "input"
-                                                                                );
-                                                                        const icon =
-                                                                            e.target
-                                                                                .closest(
-                                                                                    "button"
-                                                                                )
-                                                                                .querySelector(
-                                                                                    "i"
-                                                                                );
-                                                                        if (
-                                                                            input.type ===
-                                                                            "password"
-                                                                        ) {
-                                                                            input.type =
-                                                                                "text";
-                                                                            icon.className =
-                                                                                "fas fa-eye-slash text-sm";
-                                                                        } else {
-                                                                            input.type =
-                                                                                "password";
-                                                                            icon.className =
-                                                                                "fas fa-eye text-sm";
-                                                                        }
-                                                                    }}
-                                                                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none"
-                                                                >
-                                                                    <i className="fas fa-eye text-sm"></i>
-                                                                </button>
+                                                                {isShowPassword.confirmPassword ? (
+                                                                    <IoEye
+                                                                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none cursor-pointer"
+                                                                        onClick={() => {
+                                                                            setShowPassword(
+                                                                                (
+                                                                                    prev
+                                                                                ) => ({
+                                                                                    ...prev,
+                                                                                    confirmPassword:
+                                                                                        !prev.confirmPassword,
+                                                                                })
+                                                                            );
+                                                                        }}
+                                                                    />
+                                                                ) : (
+                                                                    <IoEyeOff
+                                                                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none cursor-pointer"
+                                                                        onClick={() => {
+                                                                            setShowPassword(
+                                                                                (
+                                                                                    prev
+                                                                                ) => ({
+                                                                                    ...prev,
+                                                                                    confirmPassword:
+                                                                                        !prev.confirmPassword,
+                                                                                })
+                                                                            );
+                                                                        }}
+                                                                    />
+                                                                )}
                                                             </div>
                                                             {errors.confirmPassword && (
                                                                 <div className="text-red-600 text-sm mt-1">
@@ -420,7 +383,6 @@ const ChangePassword = () => {
                                                                 </div>
                                                             )}
                                                         </div>
-
                                                         <button
                                                             onClick={
                                                                 handleSubmit
