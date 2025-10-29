@@ -7,7 +7,7 @@ import { FiSearch } from "react-icons/fi";
 import { MdFlipCameraIos, MdOutlineAccountCircle } from "react-icons/md";
 import { AiOutlineHeart } from "react-icons/ai";
 import { GrCart } from "react-icons/gr";
-import Logo from "@/assets/icons/logo";
+import Logo from "@/assets/icons/Logo";
 import { getCookie } from "@/utils/cookies";
 
 const Header = () => {
