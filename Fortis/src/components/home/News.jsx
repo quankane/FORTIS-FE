@@ -1,4 +1,4 @@
-import { listNew } from "@/utils/constants/News";
+import { listNew } from "@/utils/contants/News";
 import React, { useEffect, useRef, useState } from "react";
 import { IoIosCalendar } from "react-icons/io";
 import { MdOutlineAccountCircle } from "react-icons/md";
@@ -72,7 +72,7 @@ const News = () => {
                 Tin tức và xu hướng nội thất
             </p>
 
-            <div data-aos="fade-up" className="w-full">
+            <div data-aos="fade-up" className="w-full ">
                 <div className=" flex items-center justify-center relative">
                     <button
                         ref={prevRef}

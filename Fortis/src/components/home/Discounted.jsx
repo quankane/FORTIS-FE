@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Countdown from "./CountDown";
-import { listProduct } from "@/utils/constants/Product";
+import { listProduct } from "@/utils/contants/product";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
@@ -30,12 +30,6 @@ const Discounted = () => {
             setSlidesPerView(1);
         }
     };
-
-    useEffect(() => {
-        updateSlidesPerView();
-        window.addEventListener("resize", updateSlidesPerView);
-        return () => window.removeEventListener("resize", updateSlidesPerView);
-    }, []);
 
     useEffect(() => {
         updateSlidesPerView();

@@ -1,4 +1,4 @@
-import { ListCategory } from "@/utils/Constants";
+import { ListCategory } from "@/utils/Contants";
 import React from "react";
 
 const Category = () => {

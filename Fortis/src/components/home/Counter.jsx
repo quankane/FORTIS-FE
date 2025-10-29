@@ -4,23 +4,19 @@ const Counter = ({ total, title, duration = 2000 }) => {
     const [count, setCount] = useState(0);
 
     useEffect(() => {
-        let frameId = null; // Cancel animation frame nếu cần
-
         const startTime = performance.now();
 
         const animate = (currentTime) => {
-            const progress = Math.min((currentTime - startTime) / duration, 1);
-            const value = Math.floor(progress * total);
+            const progress = Math.min((currentTime - startTime) / duration, 1); // tiến độ 0 -> 1
+            const value = Math.floor(progress * total); // giá trị hiện tại theo tiến độ
             setCount(value);
 
             if (progress < 1) {
-                frameId = requestAnimationFrame(animate);
+                requestAnimationFrame(animate);
             }
         };
+
         requestAnimationFrame(animate);
-        return () => {
-            return frameId && cancelAnimationFrame(frameId);
-        };
     }, [total, duration]);
 
     return (

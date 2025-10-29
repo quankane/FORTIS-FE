@@ -1,11 +1,11 @@
-import { listAdvertise } from "@/utils/Constants";
+import { listAdvertise } from "@/utils/Contants";
 import React from "react";
 import { RiExternalLinkFill } from "react-icons/ri";
 
 const Categories = () => {
     const listRoom = listAdvertise;
     return (
-        <div className="w-full lg:h-[317px] xl:h-[407px] px-[20px]  md:px-[50px] lg:px-[130px] py-[20px] flex items-center justify-between gap-[20px]">
+        <div className="w-full h-[317px] xl:h-[407px] px-[20px]  md:px-[50px] lg:px-[130px] py-[20px] flex items-center justify-between gap-[20px]">
             <div
                 data-aos="zoom-in-left"
                 style={{

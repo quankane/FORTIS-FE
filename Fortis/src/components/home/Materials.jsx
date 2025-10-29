@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { listProduct } from "@/utils/constants/Product";
+import { listProduct } from "@/utils/contants/product";
 import React, { useEffect, useRef, useState } from "react";
 import { MdArrowRightAlt } from "react-icons/md";
 import { GrFormPrevious, GrFormNext } from "react-icons/gr";
