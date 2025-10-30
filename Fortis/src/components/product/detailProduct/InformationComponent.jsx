@@ -1,4 +1,4 @@
-import { detailProduct, policy } from "@/utils/contants/product";
+import { detailProduct, policy } from "@/utils/constants/product";
 import React, { useState } from "react";
 import { FaStar, FaRegStar, FaRegStarHalfStroke } from "react-icons/fa6";
 import CommentModal from "./CommentModal";

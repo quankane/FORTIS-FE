@@ -1,4 +1,4 @@
-import { sofas } from "@/utils/contants/sofaFake";
+import { sofas } from "@/utils/constants/sofaFake";
 import React, { useEffect, useState } from "react";
 import ProductItem from "../product/ProductItem";
 import { getAllProducts } from "@/api/product";
@@ -9,24 +9,24 @@ const BestSeller = () => {
 
     const categories = [
         {
-            name: "Sofa",
-            title: "Sofa",
+            name: "Đàn Piano",
+            title: "Đàn Piano",
         },
         {
-            name: "Bàn",
-            title: "Bàn",
+            name: "Đàn Organ - Keyboard",
+            title: "Đàn Organ - Keyboard",
         },
         {
-            name: "Ghế",
-            title: "Ghế",
+            name: "Đàn Guitar",
+            title: "Đàn Guitar",
         },
         {
-            name: "Giường",
-            title: "Giường",
+            name: "Trống Drum",
+            title: "Trống Drum",
         },
         {
-            name: "Tủ",
-            title: "Tủ",
+            name: "Amplifiers",
+            title: "Amplifiers",
         },
     ];
 

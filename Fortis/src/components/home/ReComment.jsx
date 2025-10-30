@@ -2,7 +2,7 @@ import React from "react";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FaStar, FaRegStar } from "react-icons/fa6";
-import { listComment } from "@/utils/contants/Comment";
+import { listComment } from "@/utils/constants/Comment";
 import { FaQuoteRight } from "react-icons/fa6";
 
 const ReComment = () => {
@@ -107,5 +107,5 @@ const ReComment = () => {
         </div>
     );
 };
-
+    
 export default ReComment;

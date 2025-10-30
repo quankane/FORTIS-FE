@@ -109,8 +109,8 @@ export default function AuthForm() {
                         </h2>
                         <p className="text-gray-600 text-base mb-6 text-center">
                             {isLogin
-                                ? "Chào mừng bạn đến với Haüs. Nếu bạn chưa có tài khoản, có thể đăng ký tại ô dưới đây."
-                                : "Chào mừng bạn đến với Haüs. Nếu bạn đã có tài khoản, có thể đăng nhập tại ô dưới đây."}
+                                ? "Chào mừng bạn đến với Fortis. Nếu bạn chưa có tài khoản, có thể đăng ký tại ô dưới đây."
+                                : "Chào mừng bạn đến với Fortis. Nếu bạn đã có tài khoản, có thể đăng nhập tại ô dưới đây."}
                         </p>
                         <button
                             onClick={() => setIsLogin(!isLogin)}

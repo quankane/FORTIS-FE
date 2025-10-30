@@ -1,4 +1,4 @@
-import { listAdvertise } from "@/utils/Contants";
+import { listAdvertise } from "@/utils/contans";
 import React from "react";
 import { RiExternalLinkFill } from "react-icons/ri";
 

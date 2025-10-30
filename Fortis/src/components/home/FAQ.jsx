@@ -6,20 +6,22 @@ import { IoIosArrowUp } from "react-icons/io";
 const FAQ = () => {
     const faqData = [
         {
-            question: "Haus cung cấp những dịch vụ nào?",
-            answer: "Haus chuyên thiết kế, thi công nội thất trọn gói và cung cấp sản phẩm nội thất cao cấp, phù hợp với nhiều phong cách và nhu cầu khác nhau.",
+            question: "MusicHub cung cấp những dịch vụ và sản phẩm nào?",
+            answer: "MusicHub chuyên cung cấp đa dạng các loại nhạc cụ (Guitar, Piano, Trống, Kèn...), thiết bị phòng thu (Micro, Loa Monitor) và dịch vụ lắp đặt hệ thống âm thanh trọn gói.",
         },
         {
-            question: "Thời gian thi công nội thất mất bao lâu?",
-            answer: "Thời gian thi công phụ thuộc vào quy mô dự án, thông thường dao động từ 15 - 45 ngày. Chúng tôi luôn cam kết đúng tiến độ và đảm bảo chất lượng.",
+            question:
+                "Thời gian giao hàng và lắp đặt thiết bị âm thanh là bao lâu?",
+            answer: "Thời gian giao hàng tiêu chuẩn là 2-5 ngày. Đối với các dự án lắp đặt hệ thống/phòng thu, thời gian thi công phụ thuộc vào quy mô, thông thường từ 7 - 30 ngày.",
         },
         {
-            question: "Haus có hỗ trợ thiết kế theo yêu cầu không?",
-            answer: "Có, chúng tôi cung cấp dịch vụ thiết kế riêng theo yêu cầu của khách hàng, đảm bảo không gian tối ưu, thẩm mỹ và phù hợp với sở thích cá nhân.",
+            question:
+                "Tôi có thể yêu cầu hiệu chỉnh âm thanh (setup) cho nhạc cụ không?",
+            answer: "Có, chúng tôi cung cấp dịch vụ setup (cân chỉnh) nhạc cụ theo yêu cầu của khách hàng, đảm bảo đàn/thiết bị đạt độ chính xác âm học và cảm giác chơi tối ưu nhất.",
         },
         {
-            question: "Chính sách bảo hành sản phẩm như thế nào?",
-            answer: "Chúng tôi bảo hành sản phẩm từ 12 - 24 tháng tùy theo từng loại, đồng thời hỗ trợ bảo trì dài hạn để khách hàng yên tâm sử dụng.",
+            question: "Chính sách bảo hành và bảo trì nhạc cụ như thế nào?",
+            answer: "Chúng tôi bảo hành sản phẩm từ 12 - 60 tháng tùy theo loại (ví dụ: Guitar, Amplifiers) và hỗ trợ bảo trì trọn đời cho các vấn đề kỹ thuật của nhạc cụ.",
         },
     ];
 
@@ -46,15 +48,17 @@ const FAQ = () => {
                     Câu hỏi thường gặp
                 </p>
                 <p className="w-full break-words text-[#757F95] leading-[140%]">
-                    Tại Haus, chúng tôi cung cấp dịch vụ thiết kế và thi công
-                    nội thất trọn gói, giúp khách hàng hiện thực hóa không gian
-                    sống và làm việc lý tưởng. Với đội ngũ giàu kinh nghiệm,
-                    chúng tôi cam kết đảm bảo tiến độ, chất lượng và tính thẩm
-                    mỹ cao trong từng công trình.
-                    <br /> <br /> Bên cạnh dịch vụ thi công, ND Interior còn
-                    cung cấp sản phẩm nội thất cao cấp, đa dạng mẫu mã, phù hợp
-                    với nhiều phong cách từ hiện đại, tối giản đến tân cổ điển,
-                    đáp ứng nhu cầu của mọi khách hàng.
+                    Tại Fortis, chúng tôi cung cấp dịch vụ tư vấn và lắp đặt hệ
+                    thống âm thanh, phòng thu trọn gói, giúp khách hàng hiện
+                    thực hóa không gian âm nhạc và sản xuất lý tưởng. Với đội
+                    ngũ giàu kinh nghiệm, chúng tôi cam kết đảm bảo chất lượng
+                    âm học, hiệu năng thiết bị và tính chuyên nghiệp cao trong
+                    từng dự án.
+                    <br /> <br /> Bên cạnh dịch vụ lắp đặt hệ thống âm thanh,
+                    Fortis còn cung cấp sản phẩm nhạc cụ cao cấp, đa dạng mẫu
+                    mã, phù hợp với nhiều phong cách từ Acoustic mộc mạc, Rock
+                    mạnh mẽ đến Jazz cổ điển, đáp ứng nhu cầu của mọi nghệ sĩ và
+                    người yêu nhạc.
                     <br />
                     <br /> Nếu bạn có bất kỳ thắc mắc nào về quy trình thi công,
                     chất liệu, giá cả hay chính sách bảo hành, hãy xem ngay phần

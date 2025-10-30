@@ -26,16 +26,18 @@ const About = () => {
                     VỀ CHÚNG TÔI
                 </p>
                 <p className="text-[30px] md:text-[40px] lg:text-[48px] font-bold leading-[140%]">
-                    Giải pháp nội thất hoàn hảo cho không gian của bạn
+                    Giải pháp nhạc cụ hoàn hảo cho đam mê của bạn.
                 </p>
                 <p className="text-[16px] text-[#757F95] leading-[140%]">
-                    Haus là đơn vị chuyên thiết kế và thi công nội thất trọn
-                    gói, đồng thời cung cấp các sản phẩm nội thất cao cấp dành
-                    cho nhà ở, biệt thự, căn hộ, văn phòng, showroom. Với sứ
-                    mệnh tạo ra không gian sống và làm việc đẳng cấp, mang đậm
-                    dấu ấn cá nhân của mỗi khách hàng, chúng tôi luôn đặt chất
-                    lượng và sự hài lòng của khách hàng làm giá trị cốt lõi
-                    trong mọi hoạt động.
+                    Fortis là đơn vị chuyên cung cấp và lắp đặt hệ thống âm
+                    thanh trọn gói, đồng thời phân phối các sản phẩm nhạc cụ cao
+                    cấp dành cho phòng thu cá nhân, sân khấu biểu diễn, trường
+                    nhạc, phòng karaoke gia đình và studio chuyên nghiệp. Với sứ
+                    mệnh tạo ra không gian âm nhạc lý tưởng và nâng tầm trải
+                    nghiệm trình diễn, mang đậm dấu ấn và cá tính của mỗi nghệ
+                    sĩ, chúng tôi luôn đặt chất lượng âm thanh và sự thỏa mãn
+                    niềm đam mê của khách hàng làm giá trị cốt lõi trong mọi
+                    hoạt động.
                 </p>
                 <div className="w-full flex flex-col sm:flex-row items-center justify-between flex-wrap gap-[20px]">
                     {listInventory.map((item, index) => (
@@ -49,9 +51,9 @@ const About = () => {
             </div>
             <div data-aos="flip-left" className="w-full lg:w-2/5">
                 <img
-                    src="https://bizweb.dktcdn.net/100/570/902/themes/1027061/assets/img_mobile_about.png?1755227708045"
+                    src="https://images.stockcake.com/public/0/7/c/07cb0684-a5e4-4d01-b928-e46d5e126d82_large/mystical-guitar-solo-stockcake.jpg"
                     alt="About Us"
-                    className="w-full h-auto rounded-xl"
+                    className="w-full rounded-xl object-cover h-[500px]"
                 />
             </div>
         </div>

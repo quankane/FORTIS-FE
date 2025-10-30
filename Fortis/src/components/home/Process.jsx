@@ -1,4 +1,4 @@
-import { listProcess } from "@/utils/contants/Process";
+import { listProcess } from "@/utils/constants/Process";
 import React from "react";
 
 const Process = () => {
@@ -14,7 +14,7 @@ const Process = () => {
                     QUY TRÌNH LÀM VIỆC
                 </p>
                 <p className="text-[35px] md:text-[42px] leading-[140%] font-semibold">
-                    Cam kết chất lượng từ Haus
+                    Cam kết chất lượng từ Fortis
                 </p>
             </div>
             <div className="w-full flex flex-col lg:flex-row gap-[30px] xl:gap-[50px]">

@@ -1,5 +1,5 @@
 import { getAllCategory } from "@/api/category";
-import { listColor, listStyle } from "@/utils/contants/SidebarCategory";
+import { listColor, listStyle } from "@/utils/constants/SideBarCategory";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { FaCaretDown } from "react-icons/fa";

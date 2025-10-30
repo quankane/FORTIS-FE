@@ -1,113 +1,113 @@
 export const listCategory = [
     {
         id: 1,
-        name: "Phòng ngủ",
+        name: "Đàn Piano",
         children: [
             {
                 id: 1,
-                name: "Giường ngủ",
+                name: "Piano Cơ (Acoustic)",
             },
             {
                 id: 2,
-                name: "Bàn đầu giường",
+                name: "Piano Điện (Digital)",
             },
         ],
     },
     {
         id: 2,
-        name: "Ngoài trời",
+        name: "Đàn Guitar",
         children: [
             {
                 id: 1,
-                name: "Bàn ghế sân vườn",
+                name: "Guitar Acoustic",
             },
             {
                 id: 2,
-                name: "Đèn ngoài trời",
+                name: "Guitar Điện",
             },
         ],
     },
     {
         id: 3,
-        name: "Phòng khách",
+        name: "Trống Drum",
         children: [
             {
                 id: 1,
-                name: "Sofa & ghế bành",
+                name: "Trống Acoustic",
             },
             {
                 id: 2,
-                name: "Bàn cà phê",
+                name: "Trống Điện Tử",
             },
         ],
     },
     {
         id: 4,
-        name: "Nhà bếp và thiết bị",
+        name: "Âm thanh",
         children: [
             {
                 id: 1,
-                name: "Tủ bếp",
+                name: "Loa Monitor",
             },
             {
                 id: 2,
-                name: "Dụng cụ nấu ăn",
+                name: "Microphone",
             },
         ],
     },
     {
         id: 5,
-        name: "Văn phòng tại nhà",
+        name: "Amplifiers",
         children: [
             {
                 id: 1,
-                name: "Bàn làm việc",
+                name: "Amply Guitar",
             },
             {
                 id: 2,
-                name: "Ghế công thái học",
+                name: "Amply Bass",
             },
         ],
     },
     {
         id: 6,
-        name: "Phòng ăn",
+        name: "Effect",
         children: [
             {
                 id: 1,
-                name: "Bàn ăn",
+                name: "Phơ đơn (Pedal)",
             },
             {
                 id: 2,
-                name: "Ghế ăn",
+                name: "Phơ bàn (Multi-Effects)",
             },
         ],
     },
     {
         id: 7,
-        name: "Bàn trẻ em",
+        name: "Nhạc cụ hơi",
         children: [
             {
                 id: 1,
-                name: "Giường trẻ em",
+                name: "Saxophone",
             },
             {
                 id: 2,
-                name: "Bàn học cho bé",
+                name: "Trumpet & Trombone",
             },
         ],
     },
     {
         id: 8,
-        name: "Phòng tắm",
+        name: "Phụ kiện",
         children: [
             {
                 id: 1,
-                name: "Tủ & kệ nhà tắm",
+                name: "Dây cáp & Dây đàn",
             },
             {
                 id: 2,
-                name: "Phụ kiện phòng tắm",
+                name: "Capo & Pick",
             },
         ],
     },
@@ -115,11 +115,11 @@ export const listCategory = [
 export const listColor = [
     {
         color: "#fffdd0",
-        title: "Kem",
+        title: "Kem (Cream)",
     },
     {
         color: "#a52a2a",
-        title: "Nâu",
+        title: "Sunburst", // Màu pha nâu đỏ phổ biến trên đàn
     },
     {
         color: "#ffc0cb",
@@ -131,15 +131,15 @@ export const listColor = [
     },
     {
         color: "#ffa500",
-        title: "Cam",
+        title: "Gold (Vàng)", // Phù hợp cho mạ chi tiết
     },
     {
         color: "#ffff00",
-        title: "Vàng",
+        title: "Vàng chanh (Yellow)",
     },
     {
         color: "#0000ff",
-        title: "Xanh dương",
+        title: "Xanh dương (Blue)",
     },
     {
         color: "#ff0000",
@@ -147,57 +147,56 @@ export const listColor = [
     },
     {
         color: "#00ff00",
-        title: "Xanh lá cây",
+        title: "Xanh lá cây (Green)",
     },
     {
-        color: "#800080",
-        title: "Tím",
+        color: "#808080", // Thay Tím bằng Bạc/Chrome
+        title: "Bạc (Chrome)",
     },
 ];
-
 export const listStyle = [
     {
         id: 1,
-        title: "Tủ quần áo",
+        title: "Dáng Dreadnought", // Guitar
     },
     {
         id: 2,
-        title: "Giường",
+        title: "Dáng Stratocaster", // Guitar Điện
     },
     {
         id: 3,
-        title: "Tủ kệ sách",
+        title: "Loại Condenser", // Microphone
     },
     {
         id: 4,
-        title: "Tủ",
+        title: "Loại Dynamic", // Microphone
     },
     {
         id: 5,
-        title: "Bàn trà",
+        title: "Hệ thống Full Stack", // Amplifier
     },
     {
         id: 6,
-        title: "Bàn đầu giường",
+        title: "Loại Looper", // Pedal Effect
     },
     {
         id: 7,
-        title: "Tủ đầu giường",
+        title: "Loại Distortion", // Pedal Effect
     },
     {
         id: 8,
-        title: "Quạt trần",
+        title: "Phím Weighted", // Keyboard
     },
     {
         id: 9,
-        title: "Ghế",
+        title: "Cấp độ Beginner",
     },
     {
         id: 10,
-        title: "Sofa",
+        title: "Cấp độ Professional",
     },
     {
         id: 11,
-        title: "Kệ tivi",
+        title: "Acoustic (Cơ)",
     },
 ];

@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { listProduct } from "@/utils/contants/product";
+import { listProduct } from "@/utils/constants/product";
 import React, { useEffect, useRef, useState } from "react";
 import { MdArrowRightAlt } from "react-icons/md";
 import { GrFormPrevious, GrFormNext } from "react-icons/gr";
@@ -58,23 +58,23 @@ const Materials = () => {
     const listMaterials = [
         {
             image: "https://bizweb.dktcdn.net/100/570/902/themes/1027061/assets/bg_menu_1.png?1755707267701",
-            name: "Vải",
-            title: "Vải",
+            name: "Gỗ",
+            title: "Gỗ", // Vật liệu thân đàn, thùng Piano, v.v.
         },
         {
             image: "https://bizweb.dktcdn.net/100/570/902/themes/1027061/assets/bg_menu_2.png?1755707267701",
-            name: "Gỗ",
-            title: "Gỗ",
+            name: "Kim loại",
+            title: "Kim loại", // Chất liệu chế tạo kèn, phím đàn, phần cứng trống
         },
         {
             image: "https://bizweb.dktcdn.net/100/570/902/themes/1027061/assets/bg_menu_3.png?1755707267701",
-            name: "Đá",
-            title: "Đá",
+            name: "Đồng",
+            title: "Đồng", // Chất liệu làm Cymbal, chuông kèn, dây đàn
         },
         {
             image: "https://bizweb.dktcdn.net/100/570/902/themes/1027061/assets/bg_menu_4.png?1755707267701",
-            name: "Da",
-            title: "Da",
+            name: "Linh kiện",
+            title: "Linh kiện", // Bộ mạch, Chip điện tử, Pickups, v.v.
         },
     ];
 

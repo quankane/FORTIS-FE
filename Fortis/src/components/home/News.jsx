@@ -1,4 +1,4 @@
-import { listNew } from "@/utils/contants/News";
+import { listNew } from "@/utils/constants/News";
 import React, { useEffect, useRef, useState } from "react";
 import { IoIosCalendar } from "react-icons/io";
 import { MdOutlineAccountCircle } from "react-icons/md";
@@ -63,13 +63,13 @@ const News = () => {
                 data-aos="fade-down"
                 className="text-[18px] text-[#ad7555] font-semibold leading-[140%] py-[2px] border-b[2px] border-[#ad7555] w-fit"
             >
-                BLOG HAUS
+                BLOG FORTIS
             </p>
             <p
                 data-aos="fade-down"
                 className="text-[35px] text-center md:text-[42px] font-bold leading-[140%]"
             >
-                Tin tức và xu hướng nội thất
+                Tin tức và xu hướng guitar
             </p>
 
             <div data-aos="fade-up" className="w-full ">
@@ -113,7 +113,7 @@ const News = () => {
                                             <img
                                                 src={newItem.image}
                                                 alt={newItem.title}
-                                                className="w-full h-full object-contain rounded-lg group-hover:scale-105 transition-transform duration-300"
+                                                className="w-full h-[180px] object-cover rounded-lg group-hover:scale-105 transition-transform duration-300"
                                             />
                                         </div>
                                         <div className="flex items-center justify-between py-[15px]">

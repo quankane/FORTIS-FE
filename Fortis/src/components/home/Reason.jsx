@@ -9,16 +9,16 @@ const Reason = () => {
                 className="w-full lg:w-1/2 flex flex-col gap-[20px]"
             >
                 <p className="w-fit text-[18px] text-[#ad7555] font-semibold py-2 border-b-[2px] border-[#ad7555] leading-[120%]">
-                    VÌ SAO CHỌN HAUS ?
+                    VÌ SAO CHỌN FORTIS ?
                 </p>
                 <p className="text-[35px] md:text-[42px] font-semibold leading-[140%]">
-                    Haus luôn ưu tiên sự hài lòng khách hàng
+                    FORTIS luôn ưu tiên sự hài lòng khách hàng
                 </p>
                 <p className="text-[#757F95] leading-[140%]">
-                    Haus cam kết chất lượng, thẩm mỹ và sự hài lòng. Với đội ngũ
-                    giàu kinh nghiệm, sản phẩm cao cấp và dịch vụ tận tâm, chúng
-                    tôi mang đến giải pháp nội thất hoàn hảo cho không gian của
-                    bạn.
+                    FORTIS cam kết Chất lượng âm thanh, Hiệu năng trình diễn và
+                    sự Hài lòng. Với đội ngũ giàu kinh nghiệm, sản phẩm cao cấp
+                    và dịch vụ tận tâm, chúng tôi mang đến giải pháp âm nhạc và
+                    trình diễn hoàn hảo cho niềm đam mê của bạn.
                 </p>
                 <div className="flex items-start gap-[10px] py-[20px] border-b-[1px] border-[#bababa]">
                     <div className="p-1 flex items-center justify-center rounded-full border-4 border-[#ad7555] bg-transparent">
@@ -32,9 +32,11 @@ const Reason = () => {
                             Chất lượng và thẩm mỹ vượt trội
                         </p>
                         <p className="text-[#757F95] break-words leading-[140%]">
-                            Haus cam kết mang đến các sản phẩm nội thất cao cấp
-                            với thiết kế tinh tế, hiện đại, đảm bảo độ bền và
-                            tính thẩm mỹ cao, phù hợp với mọi không gian.
+                            Fortis cam kết mang đến các sản phẩm nhạc cụ và
+                            thiết bị âm thanh cao cấp với chất lượng âm thanh
+                            trung thực, công nghệ hiện đại, đảm bảo độ bền bỉ và
+                            hiệu năng trình diễn cao, phù hợp với mọi sân khấu
+                            và phòng thu.
                         </p>
                     </div>
                 </div>
@@ -65,7 +67,7 @@ const Reason = () => {
             >
                 <div className="w-[570px] h-[570px] border-[5px] border-[#ad7555] relative">
                     <img
-                        src="https://bizweb.dktcdn.net/100/570/902/themes/1027061/assets/img_banner_whychoose.jpg?1755707267701"
+                        src="https://res.cloudinary.com/dgwnoquie/image/upload/v1761806207/unnamed_15_jfjwhq.jpg"
                         className="absolute z-5 w-[600px] h-[500px] object-cover top-[30px] right-[30px]"
                     />
                 </div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Countdown from "./CountDown";
-import { listProduct } from "@/utils/contants/product";
+import { listProduct } from "@/utils/constants/product";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";

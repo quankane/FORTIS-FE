@@ -7,7 +7,7 @@ const Contact = () => {
             <div
                 data-aos="fade-up"
                 style={{
-                    backgroundImage: `url("https://bizweb.dktcdn.net/100/570/902/themes/1027061/assets/img_video.jpg?1755707267701")`,
+                    backgroundImage: `url("https://res.cloudinary.com/dgwnoquie/image/upload/v1761805534/98vnhc7brwtz_n6wvdg.jpg")`,
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                     backgroundRepeat: "no-repeat",
@@ -20,12 +20,13 @@ const Contact = () => {
                 >
                     <div className="w-2/3 lg:w-3/4 flex flex-col gap-[20px] text-[#ffffff]">
                         <p className="text-[20px] lg:text-[26px] xl:text-[30px] font-semibold leading-[120%]">
-                            Liên hệ với Haus để được tư vấn
+                            Liên hệ với Fortis để được tư vấn
                         </p>
                         <p className="leading-[140%] break-words">
-                            Bạn cần thiết kế, thi công nội thất hay tìm kiếm sản
-                            phẩm nội thất cao cấp? Đội ngũ chuyên gia của Haus
-                            luôn sẵn sàng tư vấn và hỗ trợ tận tình
+                            Bạn cần chọn cây đàn phù hợp, nâng cấp âm thanh hay
+                            tìm kiếm phụ kiện trình diễn chuyên nghiệp? Đội ngũ
+                            chuyên gia của Fortis luôn sẵn sàng tư vấn và hỗ trợ
+                            tận tình.
                         </p>
                     </div>
                     <div className="w-1/3 lg:w-1/4 flex flex-col gap-[20px] items-center justify-center">

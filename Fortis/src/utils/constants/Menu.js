@@ -1,241 +1,214 @@
 export const menuListProduct = [
-  {
-    id: 1,
-    title: "Phòng ngủ",
-    childrens: [
-      {
+    {
         id: 1,
-        name: "Kệ lưu trữ & tủ đầu giường",
-      },
-      {
+        title: "Đàn Piano",
+        childrens: [
+            {
+                id: 1,
+                name: "Piano Cơ (Acoustic Upright)",
+            },
+            {
+                id: 2,
+                name: "Piano Điện (Digital Piano)",
+            },
+            {
+                id: 3,
+                name: "Phụ kiện Piano (Ghế, Pedal)",
+            },
+            {
+                id: 4,
+                name: "Piano Giao hưởng (Grand Piano)",
+            },
+        ],
+    },
+    {
         id: 2,
-        name: "Giường ngủ",
-      },
-      {
+        title: "Đàn Organ - Keyboard",
+        childrens: [
+            {
+                id: 1,
+                name: "Keyboard Arranger (Tự đệm)",
+            },
+            {
+                id: 2,
+                name: "Synthesizer & Workstation",
+            },
+            {
+                id: 3,
+                name: "MIDI Controllers",
+            },
+            {
+                id: 4,
+                name: "Organ nhà thờ (Church Organ)",
+            },
+        ],
+    },
+    {
         id: 3,
-        name: "Tủ quần áo",
-      },
-      {
+        title: "Đàn Guitar",
+        childrens: [
+            {
+                id: 1,
+                name: "Guitar Acoustic",
+            },
+            {
+                id: 2,
+                name: "Guitar Điện (Electric Guitar)",
+            },
+            {
+                id: 3,
+                name: "Guitar Bass",
+            },
+            {
+                id: 4,
+                name: "Ukulele & Nhạc cụ dây nhỏ",
+            },
+            {
+                id: 5,
+                name: "Guitar Classic",
+            },
+        ],
+    },
+    {
         id: 4,
-        name: "Bàn đầu giường",
-      },
-      {
+        title: "Trống Drum",
+        childrens: [
+            {
+                id: 1,
+                name: "Trống Acoustic (Drum Set)",
+            },
+            {
+                id: 2,
+                name: "Trống Điện Tử (Electronic Drum)",
+            },
+            {
+                id: 3,
+                name: "Cymbal & Hardware",
+            },
+            {
+                id: 4,
+                name: "Trống Cajon & Bộ gõ",
+            },
+        ],
+    },
+    {
         id: 5,
-        name: "Bộ chăn ga gối",
-      },
-    ],
-  },
-  {
-    id: 2,
-    title: "Ngoài trời",
-    childrens: [
-      {
-        id: 1,
-        name: "Bàn ghế sân vườn",
-      },
-      {
-        id: 2,
-        name: "Dù che nắng",
-      },
-      {
-        id: 3,
-        name: "Đèn ngoài trời",
-      },
-      {
-        id: 4,
-        name: "Ghế nằm thư giãn",
-      },
-      {
-        id: 5,
-        name: "Kệ & hộp lưu trữ ngoài trời",
-      },
-    ],
-  },
-  {
-    id: 3,
-    title: "Phòng khách",
-    childrens: [
-      {
-        id: 1,
-        name: "Sofa & ghế bành",
-      },
-      {
-        id: 2,
-        name: "Bán cà phê",
-      },
-      {
-        id: 3,
-        name: "Tủ TV & kệ tường",
-      },
-      {
-        id: 4,
-        name: "Thảm trải sàn",
-      },
-      {
-        id: 5,
-        name: "Đèn trang trí",
-      },
-    ],
-  },
-  {
-    id: 4,
-    title: "Nhà bếp và thiết bị",
-    childrens: [
-      {
-        id: 1,
-        name: "Tủ bếp",
-      },
-      {
-        id: 2,
-        name: "Dụng cụ nấu ăn",
-      },
-      {
-        id: 3,
-        name: "Đồ dùng nhà bếp",
-      },
-      {
-        id: 4,
-        name: "Thiết bị điện",
-      },
-      {
-        id: 5,
-        name: "Bàn đào & xe đẩy bếp",
-      },
-    ],
-  },
-  {
-    id: 5,
-    title: "Văn phòng tại nhà",
-    childrens: [
-      {
-        id: 1,
-        name: "Bàn làm việc",
-      },
-      {
-        id: 2,
-        name: "Ghế công thái học",
-      },
-      {
-        id: 3,
-        name: "Kệ tài liệu",
-      },
-      {
-        id: 4,
-        name: "Đèn bàn",
-      },
-      {
-        id: 5,
-        name: "Tủ hồ sơ",
-      },
-    ],
-  },
-  {
-    id: 6,
-    title: "Phòng ăn",
-    childrens: [
-      {
-        id: 1,
-        name: "Bàn ăn",
-      },
-      {
-        id: 2,
-        name: "Ghế ăn",
-      },
-      {
-        id: 3,
-        name: "Tủ ly & tủ buffet",
-      },
-      {
-        id: 4,
-        name: "Bộ bát đĩa",
-      },
-      {
-        id: 5,
-        name: "Khăn trải bàn & phụ kiện bàn ăn",
-      },
-    ],
-  },
-  {
-    id: 7,
-    title: "Phòng trẻ em",
-    childrens: [
-      {
-        id: 1,
-        name: "Giường trẻ em",
-      },
-      {
-        id: 2,
-        name: "Bàn học cho bé",
-      },
-      {
-        id: 3,
-        name: "Đồ chơi & hộp đồ chơi",
-      },
-      {
-        id: 4,
-        name: "Tủ quần áo trẻ em",
-      },
-      {
-        id: 5,
-        name: "Đèn ngủ trẻ em",
-      },
-    ],
-  },
-  {
-    id: 8,
-    title: "Phòng tắm",
-    childrens: [
-      {
-        id: 1,
-        name: "Tủ & kệ nhà tắm",
-      },
-      {
-        id: 2,
-        name: "Giường phòng tắm",
-      },
-      {
-        id: 3,
-        name: "Phụ kiện phòng tắm",
-      },
-      {
-        id: 4,
-        name: "Rèm và thảm nhà tắm",
-      },
-      {
-        id: 5,
-        name: "Giỏ đựng đồ giặt",
-      },
-    ],
-  },
+        title: "Amplifiers",
+        childrens: [
+            {
+                id: 1,
+                name: "Amply Guitar Điện",
+            },
+            {
+                id: 2,
+                name: "Amply Guitar Acoustic",
+            },
+            {
+                id: 3,
+                name: "Amply Guitar Bass",
+            },
+            {
+                id: 4,
+                name: "Amply Mini & Practice",
+            },
+        ],
+    },
+    {
+        id: 6,
+        title: "Effect",
+        childrens: [
+            {
+                id: 1,
+                name: "Single Pedals (Phơ đơn)",
+            },
+            {
+                id: 2,
+                name: "Multi-Effects (Phơ bàn)",
+            },
+            {
+                id: 3,
+                name: "Bộ chuyển đổi (Looper, Switcher)",
+            },
+            {
+                id: 4,
+                name: "Wah & Volume Pedals",
+            },
+        ],
+    },
+    {
+        id: 7,
+        title: "Nhạc cụ hơi",
+        childrens: [
+            {
+                id: 1,
+                name: "Saxophone (Alto, Tenor)",
+            },
+            {
+                id: 2,
+                name: "Trumpet & Trombone",
+            },
+            {
+                id: 3,
+                name: "Flute & Clarinet",
+            },
+            {
+                id: 4,
+                name: "Harmonica & Melodica",
+            },
+        ],
+    },
+    {
+        id: 8,
+        title: "Nhạc cụ dây",
+        childrens: [
+            {
+                id: 1,
+                name: "Violin",
+            },
+            {
+                id: 2,
+                name: "Viola & Cello",
+            },
+            {
+                id: 3,
+                name: "Contrabass (Upright Bass)",
+            },
+            {
+                id: 4,
+                name: "Nhạc cụ dân tộc (Đàn tranh, Bầu)",
+            },
+        ],
+    },
 ];
 
 export const menuProjects = [
-  {
-    id: 1,
-    name: "Căn hộ chung cư",
-  },
-  {
-    id: 2,
-    name: "Nhà phố",
-  },
-  {
-    id: 3,
-    name: "Biệt thự",
-  },
-  {
-    id: 4,
-    name: "Nhà cấp 4",
-  },
-  {
-    id: 5,
-    name: "Penthouse",
-  },
-  {
-    id: 6,
-    name: "Nhà hàng, quán cà phê",
-  },
-  {
-    id: 7,
-    name: "Khách sạn, homestay",
-  },
+    // Đổi tên thành Menu Solutions
+    {
+        id: 1,
+        name: "Phòng thu cá nhân (Home Studio)",
+    },
+    {
+        id: 2,
+        name: "Sân khấu biểu diễn ngoài trời",
+    },
+    {
+        id: 3,
+        name: "Phòng hòa nhạc, hội trường",
+    },
+    {
+        id: 4,
+        name: "Lắp đặt phòng karaoke gia đình",
+    },
+    {
+        id: 5,
+        name: "Hệ thống âm thanh trường học, nhà thờ",
+    },
+    {
+        id: 6,
+        name: "Nhà hàng, Quán cà phê Live Music",
+    },
+    {
+        id: 7,
+        name: "Studio & Production House chuyên nghiệp",
+    },
 ];

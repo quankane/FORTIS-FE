@@ -1,4 +1,4 @@
-import { ListCategory } from "@/utils/Contants";
+import { ListCategory } from "@/utils/contans";
 import React from "react";
 
 const Category = () => {
@@ -20,7 +20,7 @@ const Category = () => {
                     <img
                         src={category.image}
                         alt={`Category ${index}`}
-                        className="w-full h-full object-contain"
+                        className="w-[70px] h-[70px] object-contain"
                     />
                 </div>
             ))}

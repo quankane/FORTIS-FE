@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { FaCaretDown, FaBars, FaShoppingCart, FaCaretUp } from "react-icons/fa";
 import { IoHeart } from "react-icons/io5";
 import { MdAccountCircle } from "react-icons/md";
-import { menuListProduct, menuProjects } from "@/utils/contants/Menu";
+import { menuListProduct, menuProjects } from "@/utils/constants/Menu";
 import { removeAllCookies } from "@/utils/cookies";
 import { getAllCategory } from "@/api/category";
 import axios from "axios";

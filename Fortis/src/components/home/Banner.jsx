@@ -39,11 +39,11 @@ const Banner = () => {
     const sliders = [
         {
             imageUrl:
-                "https://bizweb.dktcdn.net/100/570/902/themes/1027061/assets/slider_1.jpg?1754927926286",
+                "https://getwallpapers.com/wallpaper/full/e/8/2/887844-guitar-desktop-backgrounds-2048x1536-full-hd.jpg",
         },
         {
             imageUrl:
-                "https://bizweb.dktcdn.net/100/570/902/themes/1027061/assets/slider_2.jpg?1754927926286",
+                "https://images4.alphacoders.com/551/thumb-1920-551125.jpg",
         },
     ];
     return (
@@ -95,17 +95,18 @@ const Banner = () => {
                                 data-aos="fade-right"
                                 className="text-[30px] ms:text-[35px] md:text-[40px] lg:text-[50px] break-words text-[#efefef] leading-[140%] text-center font-bold"
                             >
-                                Haus - Chuyên Thi Công & Cung Cấp Sản Phẩm Nội
-                                Thất Cao Cấp
+                                Fortis – Chuyên Cung Cấp & Phân Phối Nhạc Cụ &
+                                Thiết Bị Âm Thanh Cao Cấp
                             </p>
                             <p
                                 data-aos="fade-left"
                                 className="text-[16px] sm:text-[18px] md:text-[20px] text-center break-words text-[#efefef] leading-[140%]"
                             >
-                                Đơn vị chuyên nghiệp trong lĩnh vực thi công nội
-                                thất trọn gói và cung cấp sản phẩm nội thất cao
-                                cấp, mang đến không gian sống và làm việc hoàn
-                                hảo cho khách hàng
+                                Fortis là đơn vị chuyên nghiệp trong lĩnh vực tư
+                                vấn, lắp đặt hệ thống âm thanh trọn gói và cung
+                                cấp các sản phẩm nhạc cụ cao cấp, mang đến không
+                                gian âm nhạc và trình diễn hoàn hảo cho nghệ sĩ
+                                và người yêu nhạc.
                             </p>
                         </div>
                     </SwiperSlide>
