@@ -3,15 +3,18 @@ import { X, AlertCircle } from "lucide-react";
 
 const OrderEdit = ({ currentOrder, setShowEditModal, onUpdateStatus }) => {
     const [status, setStatus] = useState(currentOrder.status);
-    const [note, setNote] = useState("");
     const [showConfirm, setShowConfirm] = useState(false);
 
     const getStatusLabel = (statusValue) => {
         const labels = {
             pending: "Đang chờ",
-            shipping: "Đang giao",
+            confirmed: "Đã xác nhận",
+            processing: "Đang xử lý",
             delivered: "Đã giao",
-            returned: "Bị hoàn",
+            completed: "Hoàn thành",
+            returned: "Đã trả hàng",
+            cancelled: "Đã hủy",
+            refunded: "Đã hoàn tiền",
         };
         return labels[statusValue] || statusValue;
     };
@@ -21,7 +24,7 @@ const OrderEdit = ({ currentOrder, setShowEditModal, onUpdateStatus }) => {
     };
 
     const handleConfirmUpdate = () => {
-        onUpdateStatus(currentOrder.id, status, note);
+        onUpdateStatus(currentOrder.id, status);
         setShowConfirm(false);
         setShowEditModal(false);
     };
@@ -57,32 +60,23 @@ const OrderEdit = ({ currentOrder, setShowEditModal, onUpdateStatus }) => {
 
                         <div>
                             <label className="block text-sm font-semibold mb-2 text-gray-700">
-                                Trạng thái{" "}
+                                Trạng thái mới{" "}
                                 <span className="text-red-500">*</span>
                             </label>
                             <select
                                 value={status}
                                 onChange={(e) => setStatus(e.target.value)}
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#ad7555]"
                             >
                                 <option value="pending">Đang chờ</option>
-                                <option value="shipping">Đang giao</option>
+                                <option value="confirmed">Đã xác nhận</option>
+                                <option value="processing">Đang xử lý</option>
                                 <option value="delivered">Đã giao</option>
-                                <option value="returned">Bị hoàn</option>
+                                <option value="completed">Hoàn thành</option>
+                                <option value="returned">Đã trả hàng</option>
+                                <option value="cancelled">Đã hủy</option>
+                                <option value="refunded">Đã hoàn tiền</option>
                             </select>
-                        </div>
-
-                        <div>
-                            <label className="block text-sm font-semibold mb-2 text-gray-700">
-                                Ghi chú
-                            </label>
-                            <textarea
-                                value={note}
-                                onChange={(e) => setNote(e.target.value)}
-                                rows={3}
-                                placeholder="Nhập ghi chú về việc cập nhật (không bắt buộc)"
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
-                            />
                         </div>
 
                         <div className="flex justify-end space-x-3 pt-4">
@@ -142,16 +136,6 @@ const OrderEdit = ({ currentOrder, setShowEditModal, onUpdateStatus }) => {
                                     {getStatusLabel(status)}
                                 </span>
                             </div>
-                            {note && (
-                                <div className="pt-2 border-t border-gray-200">
-                                    <span className="text-gray-600 font-medium text-sm">
-                                        Ghi chú:
-                                    </span>
-                                    <p className="text-gray-900 text-sm mt-1">
-                                        {note}
-                                    </p>
-                                </div>
-                            )}
                         </div>
 
                         <div className="flex justify-end space-x-3">
