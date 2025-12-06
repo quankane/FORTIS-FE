@@ -10,10 +10,11 @@ const InvoiceModal = ({ onClose }) => {
                 >
                     ✖
                 </button>
+
                 <h2 className="text-2xl font-semibold mb-4 text-center text-[#ad7555]">
                     Hóa đơn mua hàng
                 </h2>
-                // phan de hien thi file pdf
+
                 <div className="flex-1 border border-gray-300 rounded-lg overflow-hidden shadow-inner">
                     <iframe
                         src="/sample-invoice.pdf"
@@ -23,6 +24,7 @@ const InvoiceModal = ({ onClose }) => {
                         className="rounded"
                     />
                 </div>
+
                 <div className="flex justify-end gap-3 mt-4">
                     <button
                         onClick={onClose}
