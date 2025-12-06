@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { FaCaretDown, FaBars, FaShoppingCart, FaCaretUp } from "react-icons/fa";
 import { IoHeart } from "react-icons/io5";
 import { MdAccountCircle } from "react-icons/md";
-import { menuListProduct, menuProjects } from "@/utils/constants/Menu";
+import { menuListProduct, menuProjects } from "@/utils/contants/Menu";
 import { removeAllCookies } from "@/utils/cookies";
 import { getAllCategory } from "@/api/category";
 import axios from "axios";
@@ -110,11 +110,6 @@ const Menu = () => {
                                 <ul className="flex flex-col gap-[10px] list-none w-[200px]">
                                     <li
                                         key={category.id}
-                                        onClick={() =>
-                                            navigate(
-                                                `/listProductByCategory/${category.id}`
-                                            )
-                                        }
                                         className="font-medium text-[15px] cursor-pointer hover:text-[#fd8f7c]"
                                     >
                                         {category.categoryName}
@@ -126,11 +121,6 @@ const Menu = () => {
                                                     (child) => (
                                                         <li
                                                             key={child.id}
-                                                            onClick={() =>
-                                                                navigate(
-                                                                    `/listProductByCategory/${child.id}`
-                                                                )
-                                                            }
                                                             className="text-[15px] cursor-pointer hover:text-[#fd8f7c]"
                                                         >
                                                             {child.categoryName}

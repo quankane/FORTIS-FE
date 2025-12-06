@@ -71,7 +71,8 @@ const App = () => {
             path: "/listProductByCategory/:categoryId",
             element: <ListProductByCategory />,
         },
-        { path: "/detailProduct/:id", element: <DetailProduct /> },
+        { path: "
+        :id", element: <DetailProduct /> },
         { path: "/search", element: <Search /> },
         { path: "/paymentPage", element: <PaymentPage /> },
         { path: "/promotion", element: <Promotion /> },

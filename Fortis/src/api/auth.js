@@ -51,7 +51,7 @@ export const login = async (data) => {
             method: "POST",
             url: "/auth/login",
             data: {
-                email,
+                username: email,
                 password,
             },
         });
