@@ -7,7 +7,7 @@ import { Pagination } from "antd";
 import PromotionCreate from "@/components/admin/promotion/PromotionCreate";
 import PromotionDetail from "@/components/admin/promotion/PromotionDetail";
 import PromotionEdit from "@/components/admin/promotion/PromotionEdit";
-import { ListPromotions } from "@/utils/constants/promotion";
+import { ListPromotions } from "@/utils/contants/promotion";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
