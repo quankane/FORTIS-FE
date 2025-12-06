@@ -15,7 +15,7 @@ const Menua = ({ isMenuOpen, activeItem, handleMenuItemClick, isMobile }) => {
             id: "thong-ke",
             name: "Thống kê",
             icon: <MdDashboard className="w-5 h-5" />,
-            path: "/",
+            path: "/admin/dashboard",
         },
         {
             id: "quan-ly-danh-muc",
