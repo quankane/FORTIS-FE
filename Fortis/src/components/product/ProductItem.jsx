@@ -1,40 +1,111 @@
 /* eslint-disable */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaRegHeart } from "react-icons/fa";
-import { formatNumber } from "@/utils/function";
+import { flyToCart, formatNumber } from "@/utils/function";
 import SaleProgressBar from "./SaleProgressBar";
+import { isLoggedIn } from "@/utils/checkLogin";
+import { useDispatch, useSelector } from "react-redux";
+import { setLocalCart, setQuantityOfCart } from "@/store/orderSlice";
+import { toast } from "react-toastify";
+import { addToCart } from "@/api/cart";
+import {
+    addFavoriteProduct,
+    deleteFavoriteProduct,
+    checkFavoriteProduct,
+} from "@/api/favorite";
 
-const ProductItem = ({ product }) => {
+const ProductItem = ({ product, onRemoveFavorite }) => {
     const [indexImage, setIndexImage] = useState(0);
     const navigate = useNavigate();
-    const [isFetching, setIsFetching] = useState(false);
-    const [likeProducts, setLikeProducts] = useState(
-        JSON.parse(localStorage.getItem("likeProducts")) || []
-    );
+    const dispatch = useDispatch();
+    const imageRef = useRef(null);
+
+    const [isFavorite, setIsFavorite] = useState(false);
 
     useEffect(() => {
-        setLikeProducts(JSON.parse(localStorage.getItem("likeProducts")) || []);
-    }, [isFetching]);
+        if (!product?.id) return;
 
-    const isLiked = (product) => {
-        return likeProducts.some((item) => item?.id === product?.id);
+        if (isLoggedIn()) {
+            checkFavoriteProduct(product.id)
+                .then((res) => {
+                    setIsFavorite(res.data === true);
+                })
+                .catch(() => {});
+        } else {
+            const localFav =
+                JSON.parse(localStorage.getItem("likeProducts")) || [];
+            setIsFavorite(localFav.some((p) => p.id === product.id));
+        }
+    }, [product]);
+
+    const handleLike = async (product) => {
+        if (!isLoggedIn()) {
+            const localFav =
+                JSON.parse(localStorage.getItem("likeProducts")) || [];
+            let updated;
+            if (isFavorite) {
+                updated = localFav.filter((p) => p.id !== product.id);
+                localStorage.setItem("likeProducts", JSON.stringify(updated));
+                setIsFavorite(false);
+                onRemoveFavorite?.();
+            } else {
+                updated = [...localFav, product];
+                localStorage.setItem("likeProducts", JSON.stringify(updated));
+                setIsFavorite(true);
+            }
+            return;
+        }
+
+        try {
+            if (isFavorite) {
+                await deleteFavoriteProduct(product.id);
+            } else {
+                await addFavoriteProduct(product.id);
+            }
+
+            setIsFavorite(!isFavorite);
+        } catch (err) {
+            console.error("Favorite API Error:", err);
+        }
     };
 
-    const handleLike = (product) => {
-        setIsFetching(!isFetching);
-        const isLike = isLiked(product);
-        if (isLike) {
-            const updatedLikeProducts = likeProducts.filter(
-                (item) => item.id !== product.id
-            );
-            localStorage.setItem(
-                "likeProducts",
-                JSON.stringify(updatedLikeProducts)
-            );
+    const quantityOfCart = useSelector((state) => state.order.quantityOfCart);
+    const handleClickAddToCart = async (e) => {
+        e.stopPropagation();
+        const imageUrl = product.productVariations[0].media?.url;
+
+        if (isLoggedIn()) {
+            const data = {
+                variantId: product.productVariations[0].id,
+                quantity: 1,
+            };
+            const response = await addToCart(data);
+            if (response.status === 200) {
+                flyToCart(imageUrl, imageRef.current);
+                dispatch(setQuantityOfCart(quantityOfCart + 1));
+                setTimeout(() => {
+                    toast.success("Đã thêm vào giỏ hàng");
+                }, 1300);
+            }
         } else {
-            likeProducts.push(product);
-            localStorage.setItem("likeProducts", JSON.stringify(likeProducts));
+            dispatch(
+                setLocalCart({
+                    ...product,
+                    productVariations: [
+                        {
+                            ...product.productVariations[0],
+                            isSelected: true,
+                            cartQuantity: 1,
+                        },
+                    ],
+                })
+            );
+            flyToCart(imageUrl, imageRef.current);
+            dispatch(setQuantityOfCart(quantityOfCart + 1));
+            setTimeout(() => {
+                toast.success("Đã thêm vào giỏ hàng");
+            }, 1300);
         }
     };
 
@@ -55,7 +126,7 @@ const ProductItem = ({ product }) => {
                 onClick={(e) => e.stopPropagation()}
                 className={`absolute shadow-lg top-2 right-2 z-10 w-[30px] h-[30px] flex items-center justify-center rounded-lg bg-[#faf5f5] cursor-pointer
           opacity-0 translate-x-6 invisible group-hover:opacity-100 group-hover:translate-x-0 group-hover:visible transition-all duration-300
-          ${isLiked(product) ? "bg-[#ff6347] text-white" : ""}`}
+          ${isFavorite ? "bg-[#ff6347] text-white" : ""}`}
             >
                 <FaRegHeart onClick={() => handleLike(product)} />
             </div>
@@ -74,19 +145,25 @@ const ProductItem = ({ product }) => {
             {/* Button thêm giỏ hàng */}
             <div className="w-full flex items-center justify-center absolute top-[140px] lg:top-[140px] xl:top-[200px] left-0">
                 <button
-                    onClick={(e) => e.stopPropagation()}
+                    onClick={(e) => {
+                        product?.soldQuantity !== product?.inventoryQuantity &&
+                            (!product?.productVariations ||
+                                product?.productVariations.length === 1) &&
+                            handleClickAddToCart(e);
+                    }}
                     className={` w-[70%] z-10 bg-white text-[15px] font-medium px-3 py-2 rounded-xl
           opacity-0 translate-y-6 invisible group-hover:opacity-100 group-hover:translate-y-0 group-hover:visible transition-all duration-300
           hover:bg-[#ad7555] hover:text-white ${
-              product?.sell === product?.inventoryQuantity
+              product?.soldQuantity === product?.inventoryQuantity
                   ? "cursor-not-allowed"
                   : "cursor-pointer"
           }`}
                 >
-                    {product?.medias && product?.medias.length > 1
-                        ? "Tùy chọn"
-                        : product?.sell === product?.inventoryQuantity
+                    {product?.soldQuantity === product?.inventoryQuantity
                         ? "Hết hàng"
+                        : product?.productVariations &&
+                          product?.productVariations.length > 1
+                        ? "Tùy chọn"
                         : "Thêm vào giỏ hàng"}
                 </button>
             </div>
@@ -106,6 +183,7 @@ const ProductItem = ({ product }) => {
               }`}
                         >
                             <img
+                                ref={imageRef}
                                 src={image?.url}
                                 alt={product?.productName}
                                 className="w-full h-full rounded-full"

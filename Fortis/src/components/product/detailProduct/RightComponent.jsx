@@ -1,21 +1,29 @@
 /* eslint-disable*/
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { FaStar, FaRegStar, FaRegStarHalfStroke } from "react-icons/fa6";
 import { CiHeart } from "react-icons/ci";
 import { IoIosFlash } from "react-icons/io";
-import { formatNumber } from "@/utils/function";
+import { flyToCart, formatNumber } from "@/utils/function";
 import { ImHeadphones } from "react-icons/im";
 import { FiPackage } from "react-icons/fi";
 import { FaTruck } from "react-icons/fa";
+import { isLoggedIn } from "@/utils/checkLogin";
+import { useDispatch, useSelector } from "react-redux";
+import { setLocalCart, setQuantityOfCart } from "@/store/orderSlice";
+import { toast } from "react-toastify";
+import { addToCart } from "@/api/cart";
+import { useNavigate } from "react-router-dom";
 
 const RightComponent = ({
     product,
     setSelectedVariantIndex,
     selectedVariantIndex,
 }) => {
-    // const [typeIndex, setTypeIndex] = useState(0);
     const [count, setCount] = useState(1);
     const [countInCart, setCountInCart] = useState(0);
+    const dispatch = useDispatch();
+    const addCartBtnRef = useRef(null);
+    const navigate = useNavigate();
 
     const benefits = [
         {
@@ -34,6 +42,54 @@ const RightComponent = ({
             desc: "Kể từ ngày giao hàng",
         },
     ];
+
+    const quantityOfCart = useSelector((state) => state.order.quantityOfCart);
+
+    const handleAddToCart = async () => {
+        const imageUrl =
+            product.productVariations[selectedVariantIndex].media?.url;
+
+        if (isLoggedIn()) {
+            const data = {
+                variantId: product.productVariations[selectedVariantIndex].id,
+                quantity: count,
+            };
+            const response = await addToCart(data);
+            if (response.status === 200) {
+                flyToCart(imageUrl, addCartBtnRef.current);
+                dispatch(setQuantityOfCart(quantityOfCart + count));
+                setCountInCart(countInCart + count);
+                setTimeout(() => {
+                    toast.success("Đã thêm vào giỏ hàng");
+                }, 1300);
+            }
+        } else {
+            dispatch(
+                setLocalCart({
+                    ...product,
+                    productVariations: product.productVariations.map(
+                        (variation, index) => ({
+                            ...variation,
+                            isSelected: index === selectedVariantIndex,
+                            cartQuantity:
+                                index === selectedVariantIndex ? count : 0,
+                        })
+                    ),
+                })
+            );
+            setCountInCart(countInCart + 1);
+            flyToCart(imageUrl, addCartBtnRef.current);
+            dispatch(setQuantityOfCart(quantityOfCart + count));
+            setTimeout(() => {
+                toast.success("Đã thêm vào giỏ hàng");
+            }, 1300);
+        }
+    };
+
+    const handleClickBuyNow = () => {
+        handleAddToCart();
+        navigate("/cart");
+    };
     return (
         <div data-aos="fade-left" className="w-full flex flex-col gap-[20px]">
             <p className="text-[32px] font-semibold leading-[140%]">
@@ -98,6 +154,9 @@ const RightComponent = ({
                                 ?.color
                         }
                     </p>
+                    <p className="font-semibold">
+                        Chất liệu: {product?.material || "Chưa có thông tin"}
+                    </p>
 
                     <div className="w-full flex items-center gap-[10px]">
                         {product?.productVariations?.map((type, index) => (
@@ -112,6 +171,7 @@ const RightComponent = ({
                                 }`}
                             >
                                 <img
+                                    ref={addCartBtnRef}
                                     src={type?.media?.url}
                                     alt={type?.color}
                                     className={`w-full h-full object-cover`}
@@ -145,7 +205,10 @@ const RightComponent = ({
                     </div>
 
                     <div className="w-full flex items-center justify-between gap-[10px]">
-                        <button className="w-full px-[8px] py-[14px] font-medium text-[#ad7555] border-[1px] border-[#ad7555] rounded-lg bg-transparent hover:text-white hover:bg-[#ad7555]">
+                        <button
+                            onClick={() => handleAddToCart()}
+                            className="w-full px-[8px] py-[14px] font-medium text-[#ad7555] border-[1px] border-[#ad7555] rounded-lg bg-transparent hover:text-white hover:bg-[#ad7555]"
+                        >
                             THÊM VÀO GIỎ
                         </button>
                         <button className="w-[53px] h-[53px] border-[1px] border-[#ad7555] rounded-lg text-[#ad7555] bg-transparent text-[24px] flex items-center justify-center hover:text-white hover:bg-[#ad7555]">
@@ -153,7 +216,10 @@ const RightComponent = ({
                         </button>
                     </div>
 
-                    <button className="w-full px-[8px] py-[14px] bg-[#ad7555] text-white font-medium border-[1px] border-[#ad7555] hover:text-[#ad7555] hover:bg-transparent rounded-lg">
+                    <button
+                        onClick={handleClickBuyNow}
+                        className="w-full px-[8px] py-[14px] bg-[#ad7555] text-white font-medium border-[1px] border-[#ad7555] hover:text-[#ad7555] hover:bg-transparent rounded-lg"
+                    >
                         MUA NGAY
                     </button>
 
