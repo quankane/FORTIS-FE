@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { LoginSchema, RegisterSchema } from "@/utils/validation/authValidation";
 import Layout from "../commons/Layout";
+import { setCookie } from "@/utils/cookies";
 
 export default function AuthForm() {
     const [isLogin, setIsLogin] = useState(true);
@@ -20,6 +21,7 @@ export default function AuthForm() {
             try {
                 const response = await login(values);
                 if (response.status === 200) {
+                    setCookie("email", values.email);
                     toast.success("Đăng nhập thành công!");
                     navigate("/");
                 }
@@ -30,10 +32,10 @@ export default function AuthForm() {
                             toast.error("Lỗi hệ thống");
                             break;
                         case 400:
-                            toast.error("Dữ liệu không hợp lệ");
+                            toast.error("Email hoặc mật khẩu không đúng.");
                             break;
                         case 404:
-                            toast.error("Email hoặc mật khẩu không đúng");
+                            toast.error("Email hoặc mật khẩu không đúng.");
                             break;
                         default:
                             toast.error(
@@ -56,7 +58,7 @@ export default function AuthForm() {
                     );
 
                     navigate("/auth/verifyOTP", {
-                        state: { email: values.email },
+                        state: { email: values.email, data: values },
                     });
                 }
             } catch (error) {
@@ -109,8 +111,8 @@ export default function AuthForm() {
                         </h2>
                         <p className="text-gray-600 text-base mb-6 text-center">
                             {isLogin
-                                ? "Chào mừng bạn đến với Fortis. Nếu bạn chưa có tài khoản, có thể đăng ký tại ô dưới đây."
-                                : "Chào mừng bạn đến với Fortis. Nếu bạn đã có tài khoản, có thể đăng nhập tại ô dưới đây."}
+                                ? "Chào mừng bạn đến với Haüs. Nếu bạn chưa có tài khoản, có thể đăng ký tại ô dưới đây."
+                                : "Chào mừng bạn đến với Haüs. Nếu bạn đã có tài khoản, có thể đăng nhập tại ô dưới đây."}
                         </p>
                         <button
                             onClick={() => setIsLogin(!isLogin)}
