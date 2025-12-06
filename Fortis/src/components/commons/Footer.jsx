@@ -15,7 +15,7 @@ const Footer = () => {
                         <FaMapMarkerAlt className="text-[24px] text-[#efefef]" />
                     </div>
                     <p className="text-[16px] text-[#efefef] leading-[120%]">
-                        Xuân Phương, Bắc Từ Liêm, Hà Nội
+                        Nguyên Xá, Bắc Từ Liêm, Hà Nội
                     </p>
                 </div>
 
@@ -24,7 +24,7 @@ const Footer = () => {
                         <MdEmail className="text-[24px] text-[#efefef]" />
                     </div>
                     <p className="text-[16px] text-[#efefef] leading-[120%]">
-                        Fortis@example.com
+                        haus@example.com
                     </p>
                 </div>
 
