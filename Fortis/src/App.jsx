@@ -26,12 +26,17 @@ const ManagerProduct = lazy(() =>
 const ListProductByCategory = lazy(() =>
     import("@/pages/ListProductByCategory")
 );
-const Order = lazy(() => import("@/pages/OrderManagement"));
+const DashboardPage = lazy(() =>
+    import("@/components/admin/Dashboard/DashBoardPage")
+);
+const Order = lazy(() => import("@/pages/OrderManagerment"));
 const DetailProduct = lazy(() => import("@/pages/DetailProduct"));
 const Search = lazy(() => import("@/pages/Search"));
 const CartPage = lazy(() => import("@/pages/CartPage"));
 const PaymentPage = lazy(() => import("@/components/payment/PaymentPage"));
+const PaymentResult = lazy(() => import("@/pages/PaymentResult"));
 const WishList = lazy(() => import("@/pages/WishList"));
+const OrderInfor = lazy(() => import("@/pages/OrderInfor"));
 const App = () => {
     useEffect(() => {
         AOS.init({
@@ -71,11 +76,11 @@ const App = () => {
             path: "/listProductByCategory/:categoryId",
             element: <ListProductByCategory />,
         },
-        { path: "
-        :id", element: <DetailProduct /> },
+        { path: "/detailProduct/:id", element: <DetailProduct /> },
         { path: "/search", element: <Search /> },
         { path: "/paymentPage", element: <PaymentPage /> },
-        { path: "/promotion", element: <Promotion /> },
+        { path: "/payment-result", element: <PaymentResult /> },
+        { path: "/order-infor", element: <OrderInfor /> },
         {
             path: "/admin",
             // element: <LayoutAdmin />,
@@ -85,6 +90,7 @@ const App = () => {
                 </ProtectedRoute>
             ),
             children: [
+                { path: "dashboard", element: <DashboardPage /> },
                 { path: "managerCategory", element: <ManagerCategory /> },
                 { path: "managerProduct", element: <ManagerProduct /> },
                 { path: "managerPromotion", element: <Promotion /> },
